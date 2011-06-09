@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel
+END
+RichText.php
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/RichText.php
+END
+HashTable.php
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/HashTable.php
+END
+DocumentProperties.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/DocumentProperties.php
+END
+ReferenceHelper.php
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/ReferenceHelper.php
+END
+Calculation.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/Calculation.php
+END
+IOFactory.php
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/IOFactory.php
+END
+Autoloader.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/Autoloader.php
+END
+Settings.php
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/Settings.php
+END
+Style.php
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/Style.php
+END
+NamedRange.php
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/NamedRange.php
+END
+Comment.php
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/Comment.php
+END
+DocumentSecurity.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/DocumentSecurity.php
+END
+CachedObjectStorageFactory.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/CachedObjectStorageFactory.php
+END
+Worksheet.php
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/Worksheet.php
+END
+IComparable.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/IComparable.php
+END
+Cell.php
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/Cell.php
+END
+WorksheetIterator.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/WorksheetIterator.php
+END

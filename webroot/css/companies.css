@@ -1,0 +1,35 @@
+fieldset fieldset {
+    padding: 10px 20px;
+}
+/* company childs table */
+table.company_childs {
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}
+table.company_childs tr td, table.company_childs tr th {
+    border: 1px solid #ccc;
+}
+table.company_childs tr th {
+    padding: 2px 4px;
+    font-weight: bold;
+    background: #DFDFDF url(../img/gray-grad.png) repeat-x left top;
+    text-shadow:0 1px 0 rgba(255, 255, 255, 0.8);
+}
+.center {
+    text-align: center;
+}
+.numeric {
+    text-align: right;
+}
+table.company_childs tr th.numeric {
+    white-space: nowrap;
+}
+#add_row, #del_row {
+    font-family: verdana;
+    font-weight: bold;
+    text-shadow: #efefef 1px 1px 2px;
+}
+table.border tr td {
+    border: 1px solid #ccc;
+}
+

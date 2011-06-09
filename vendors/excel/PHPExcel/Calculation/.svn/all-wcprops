@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/Calculation
+END
+functionlist.txt
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/Calculation/functionlist.txt
+END
+ExceptionHandler.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/Calculation/ExceptionHandler.php
+END
+Exception.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/Calculation/Exception.php
+END
+FormulaParser.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/Calculation/FormulaParser.php
+END
+Function.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/Calculation/Function.php
+END
+FormulaToken.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/Calculation/FormulaToken.php
+END
+Functions.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/11/trunk/vendors/excel/PHPExcel/Calculation/Functions.php
+END

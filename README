@@ -1,0 +1,11 @@
+CONTAINER MANAGEMENT SYSTEM
+
+2011-06-09
+An application for container operation in Depo and Yard. The application covers container movement, placement in Depo and Yard and loading to Vessels (in this case would be carriages).
+
+Note : - This application is based on cakephp (version 1.3.8 by the time this file writen).
+       - Only the app/ directory is posted in this repository for decoupling from cakephp version.
+       - The config/database.php file is ignored in this application. Leaving database configuration in each clone. Remember that this file is needed for database connection.
+       - The app/tmp/ directory is also ignored since it is written alot by application thus maintaining it in repository is insignificant. However the directory structure of app/tmp/ is needed for the application to do it service.
+       - Another reason for ignoring the app/tmp/ is that git does not maintain file permission while web server needs write permission on it.
+

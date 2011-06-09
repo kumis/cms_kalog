@@ -1,0 +1,74 @@
+/* transactions table */
+#information {}
+#information h2 {
+    font-family: georgia;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #333;
+    border-bottom: 1px solid #666;
+    margin-bottom: 5px;
+}
+#information ol li {
+    list-style-type: decimal;
+    margin-left: 20px;
+}
+table.transactions {
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}
+table.transactions tr td, table.transactions tr th {
+    border: 1px solid #ccc;
+}
+table.transactions tr th {
+    padding: 2px 4px;
+    font-weight: bold;
+    background: #DFDFDF url(../img/gray-grad.png) repeat-x left top;
+    text-shadow:0 1px 0 rgba(255, 255, 255, 0.8);
+}
+.center {
+    text-align: center;
+}
+.description {
+    width: 140px;
+    height: 100px;
+}
+.label_trans {
+    display: block;
+    color: #666;
+}
+.select {
+    margin-bottom: 5px;
+}
+.numeric {
+    text-align: right;
+}
+.total {
+    display:block;
+    padding-right:20px;
+    text-align:right;
+}
+.rlabel {
+    display: inline-block;
+}
+.evidence_no {
+    display: none;
+}
+
+.transactions .up {
+    display: inline-block;
+    width: 16px;
+    height: 12px;
+    background: transparent url(../img/up.gif) top left no-repeat;
+}
+#add_row, #del_row {
+    font-family: verdana;
+    font-weight: bold;
+    text-shadow: #efefef 1px 1px 2px;
+}
+#total_transaction {
+    display: inline-block;
+}
+table.transactions tr th.numeric {
+    white-space: nowrap;
+}
