@@ -44,7 +44,7 @@ class Group extends AppModel {
     );
     var $cacheQueries = true;
 
-    function afterSave() {
+    function afterSave() { 
         $i = 0;
         $values = array();
         foreach ($this->data['GroupModuleAction'] as $id => $action) {

@@ -1,5 +1,6 @@
 <?php
 class AppController extends Controller {
+    var $pageTitle = '';
     var $components    = array(
         'Auth', 'Session', 
         'Cookie', 'Captcha',
@@ -485,7 +486,7 @@ class AppController extends Controller {
         }
         
         // check permission based on action and controller
-        $permissions = $this->Session->read('Group.ModuleAction');
+        $permissions = $this->Session->read('Group.ModuleAction'); 
         $controller = Inflector::underscore($this->params['controller']);
         $allowed = false;
         foreach ( $permissions as $permission ) {

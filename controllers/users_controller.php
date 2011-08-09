@@ -152,7 +152,7 @@ class UsersController extends AppController {
         // set unit_codes option
         $unit_codes = $this->User->UnitCode->find('list', array(
             'fields' => array('UnitCode.id', 'UnitCode.name'),
-            'order' => 'name', 'recursive' => 0
+            'order' => 'UnitCode.name', 'recursive' => 0
         ));
         
         $this->set('unit_codes', $unit_codes);
@@ -160,14 +160,21 @@ class UsersController extends AppController {
         // set provinces option
         $provinces = $this->User->Province->find('all', array(
             'fields' => array('Province.id', 'Province.name'),
-            'order' => 'name', 'recursive' => 0
+            'order' => 'Province.name', 'recursive' => 0
         ));
         $this->set(compact('provinces'));
+        
+        // set cities option
+        $cities = $this->User->City->find('all', array(
+            'fields' => array('City.id', 'City.name'),
+            'order' => 'City.name', 'recursive' => 0
+        ));
+        $this->set(compact('cities'));
         
         // set groups option
         $groups = $this->User->Group->find('list', array(
             'fields' => array('Group.id', 'Group.name'),
-            'order' => 'name', 'recursive' => 0
+            'order' => 'Group.name', 'recursive' => 0
         ));
         $this->set(compact('groups'));
 
@@ -175,7 +182,7 @@ class UsersController extends AppController {
             $cities = $this->User->City->find('all', array(
                 'conditions' => array('City.province_id' => $this->data['User']['province_id']),
                 'fields' => array('City.id', 'City.name'),
-                'order' => 'name', 'recursive' => 0
+                'order' => 'City.name', 'recursive' => 0
             ));
             $this->set('cities', $cities);
         }

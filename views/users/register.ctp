@@ -31,7 +31,7 @@
                         "P" => "Perempuan", 
                         "L" => "Laki - laki"
                     );
-                    echo $form->select("sex", $option_gender, null, array("class" => "inputText"), false);
+                    echo $form->select("sex", $option_gender, null, array("class" => "inputText"));
                     echo ($form->isFieldError('sex')) ? $form->error('sex') : '';
                 ?>
             </span>
@@ -101,7 +101,7 @@
                 echo $form->select('setup_province_id', $option_provinces, null, array(
                     'class' => 'inputText ajax_select', 
                     'rel' => '#StudentSetupCityId', 'ref' => 'setup_province_id'
-                ), false);
+                ));
                 echo ($form->isFieldError('setup_province_id')) ? $form->error('setup_province_id') : '';
             ?>
             </span>
@@ -114,7 +114,7 @@
                 echo $form->select('setup_city_id', $option_city, null, array(
                     'class' => 'inputText',
                     'model' => 'City', 'field' => 'name'
-                ), false);
+                ));
                 echo ($form->isFieldError('setup_city_id')) ? $form->error('setup_city_id') : '';
             ?>
             </span>
@@ -151,7 +151,7 @@
                         '' => "- Select One -", "WNI" => "Warga Negara Indonesia", 
                         "WNIK" => "Warga Negara Indonesia Keturunan", "WNA"=>"Warga Negara Asing"
                     );
-                    echo $form->select("citizenship", $option_citizenship, null, array('class'=>'inputText'), false);
+                    echo $form->select("citizenship", $option_citizenship, null, array('class'=>'inputText'));
                     echo ($form->isFieldError('citizenship')) ? $form->error('citizenship') : '';
                 ?>
             </span>
@@ -166,7 +166,7 @@
                         "KATOLIK" => "KRISTEN KATOLIK", "PROTESTAN"=>"KRISTEN PROTESTAN",
                         "HINDU"=>"HINDU", "BUDDHA"=>"BUDDHA", "KONGHUCU"=>"KONGHUCU"
                     );
-                    echo $form->select("religion", $option_religions, null, array('class'=>'inputText'), false);
+                    echo $form->select("religion", $option_religions, null, array('class'=>'inputText'));
                     echo ($form->isFieldError('religion')) ? $form->error('religion') : '';
                 ?>
             </span>
@@ -180,7 +180,7 @@
                         "Y" => "Married", 
                         "N" => "Not Married"
                     );
-                    echo $form->select("marital_status", $option_marital, null, array('class'=>'inputText'), false);
+                    echo $form->select("marital_status", $option_marital, null, array('class'=>'inputText'));
                     echo ($form->isFieldError('marital_status')) ? $form->error('marital_status') : '';
                 ?>
             </span>
@@ -212,7 +212,7 @@
                 echo $form->select('setup_shs_province_id', $option_shsprovinces, null, array(
                     'class' => 'inputText ajax_select',
                     'rel' => '#StudentSetupShsCityId', 'ref' => 'setup_province_id'
-                ), false);
+                ));
                 echo ($form->isFieldError('setup_shs_province_id')) ? $form->error('setup_shs_province_id') : '';
             ?>
             </span>
@@ -225,7 +225,7 @@
                 echo $form->select('setup_shs_city_id', $option_shscity, null, array(
                     'class' => 'inputText ajax_select', 
                     'model' => 'City', 'field' => 'name'
-                ), false);
+                ));
                 echo ($form->isFieldError('setup_shs_city_id')) ? $form->error('setup_shs_city_id') : '';
             ?>
             </span>
@@ -247,7 +247,7 @@
                     $option_shscourses[$shscourse['ShsCourse']['id']] = $shscourse['ShsCourse']['name'].' ('.$shscourse['ShsCourse']['desc'].')';
                 }
 
-                echo $form->select('setup_shs_course_id', $option_shscourses, null, array("class"=>"inputText"), false);
+                echo $form->select('setup_shs_course_id', $option_shscourses, null, array("class"=>"inputText"));
                 echo ($form->isFieldError('setup_shs_course_id')) ? $form->error('setup_shs_course_id') : '';
             ?>
             </span>
@@ -289,7 +289,7 @@
             <span class="trans-label">Work Status</span>
             <span class="trans-val">
                 <?php
-                    echo $form->select("work_status", array("" => "- Select One -", "N" => "No", "Y" => "Yes"), '', array('class'=>'inputText'), false);
+                    echo $form->select("work_status", array("" => "- Select One -", "N" => "No", "Y" => "Yes"), '', array('class'=>'inputText'));
                     echo ($form->isFieldError('work_status')) ? $form->error('work_status') : '';
                 ?>
             </span>
@@ -302,7 +302,7 @@
                 foreach($professions as $profession) {
                     $option_professions[$profession['Profession']['id']] = $profession['Profession']['name'];
                 }
-                echo $form->select('setup_profession_id', $option_professions, null, array("class"=>"inputText"), false);
+                echo $form->select('setup_profession_id', $option_professions, null, array("class"=>"inputText"));
                 echo ($form->isFieldError('setup_profession_id')) ? $form->error('setup_profession_id') : '';
             ?>
             </span>
@@ -343,7 +343,7 @@
                 echo $form->select('setup_work_province_id', $option_workprovinces, null, array(
                     'class' => 'inputText ajax_select',
                     'rel' => '#StudentSetupWorkCityId', 'ref' => 'setup_province_id'
-                ), false);
+                ));
             ?>
             </span>
         </li>
@@ -355,7 +355,7 @@
                 echo $form->select('setup_work_city_id', $option_workcity, null, array(
                     'class' => 'inputText ajax_select',
                     'model' => 'City', 'field' => 'name'
-                ), false);
+                ));
             ?>
             </span>
         </li>
@@ -401,7 +401,7 @@
                 echo $form->select('setup_parent_province_id', $option_workprovinces, null, array(
                     'class' => 'inputText ajax_select',
                     'rel' => '#StudentSetupParentCityId', 'ref' => 'setup_province_id'
-                ), false);
+                ));
                 echo ($form->isFieldError('setup_parent_province_id')) ? $form->error('setup_parent_province_id') : '';
             ?>
             </span>
@@ -414,7 +414,7 @@
                 echo $form->select('setup_parent_city_id', $option_workcity, null, array(
                     'class' => 'inputText ajax_select',
                     'model' => 'City', 'field' => 'name'
-                ), false);
+                ));
                 echo ($form->isFieldError('setup_parent_city_id')) ? $form->error('setup_parent_city_id') : '';
             ?>
             </span>
@@ -452,7 +452,7 @@
                 foreach($professions as $profession){
                     $option_professions[$profession['Profession']['id']] = $profession['Profession']['name'];
                 }
-                echo $form->select('setup_parent_profession_id', $option_professions, null, array("class"=>"inputText"), false);
+                echo $form->select('setup_parent_profession_id', $option_professions, null, array("class"=>"inputText"));
             ?>
             </span>
         </li>          

@@ -5,7 +5,7 @@
         <table class="input">
             <tr>
                 <td class="label-required"><?php echo __('Province', true);?></td>
-                <td><?php echo $form->select('province_id', $provinces, null, array('div'=>false, 'label'=>false, 'class'=>'required'), false);?></td>
+                <td><?php echo $form->select('province_id', $provinces, null, array('div'=>false, 'label'=>false, 'class'=>'required'));?></td>
             </tr>
             <tr>
                 <td class="label-required"><?php echo __('Name', true);?></td>

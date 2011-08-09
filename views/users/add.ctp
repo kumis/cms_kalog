@@ -16,7 +16,7 @@
                 <td class="label-required"><?php echo __('Unit', true);?></td>
                 <td>
                     <?php
-                    echo $this->Form->select('unit_code_id', $unit_codes, null,  true);
+                    echo $this->Form->select('unit_code_id', $unit_codes);
                     echo ($form->isFieldError('unit_code_id')) ? $form->error('unit_code_id') : '';
                     ?>
                 </td>
@@ -25,7 +25,7 @@
                 <td class="label-required"><?php echo __('Group', true);?></td>
                 <td>
                     <?php
-                    echo $this->Form->select('group_id', $groups, null, null, false);
+                    echo $this->Form->select('group_id', $groups);
                     echo ($form->isFieldError('group_id')) ? $form->error('group_id') : '';
                     ?>
                 </td>
@@ -51,7 +51,7 @@
                             "P" => __("Female", true), 
                             "L" => __("Male", true)
                         );
-                        echo $form->select("sex", $option_gender, null, array("class" => "inputText"), false);
+                        echo $form->select("sex", $option_gender, null, array("class" => "inputText"));
                         echo ($form->isFieldError('sex')) ? $form->error('sex') : '';
                     ?>
                 </td>
@@ -121,7 +121,7 @@
                     echo $form->select('province_id', $option_provinces, null, array(
                         'class' => 'inputText ajax_select', 
                         'rel' => '#UserCityId', 'ref' => 'province_id'
-                    ), false);
+                    ));
                     echo ($form->isFieldError('province_id')) ? $form->error('province_id') : '';
                 ?>
                 </td>
@@ -131,10 +131,14 @@
                 <td>
                 <?php
                     $option_city[''] = __('Select Province first', true);
+                    foreach($cities as $city){
+                        $option_city[$city['City']['id']] = $city['City']['name'];
+                    }
+                    
                     echo $form->select('city_id', $option_city, null, array(
                         'class' => 'inputText',
                         'model' => 'City', 'field' => 'name'
-                    ), false);
+                    ));
                     echo ($form->isFieldError('city_id')) ? $form->error('city_id') : '';
                 ?>
                 </td>

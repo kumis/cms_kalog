@@ -9,7 +9,7 @@
                 <?php 
                     echo $form->select('province_id', $provinces, null, array(
                         'div'=>false, 'label'=>false, 'class'=>'required'
-                        ), true);
+                        ));
                     echo ($form->isFieldError('province_id')) ? $form->error('province_id') : '';
                 ?>
                 </td>

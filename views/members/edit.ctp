@@ -21,7 +21,7 @@
                 <?php 
                     echo $form->select('price_id', $prices, null, array(
                         'div'=>false, 'label'=>false, 'class'=>'required'
-                        ), true);
+                        ));
                     echo ($form->isFieldError('price_id')) ? $form->error('price_id') : '';
                 ?>
                 </td>

@@ -15,13 +15,22 @@ class AppModel extends Model {
         $tableName = $db->fullTableName($this, false);
         
         // cek if field created_by and modified_by is exists in current table
-        $result = $this->query("SHOW COLUMNS FROM {$tableName} LIKE '%ed_by'");
+        //$result = $this->query("SHOW COLUMNS FROM {$tableName} LIKE '%ed_by'");
         
+/*
         if ( isset( $result[0]['COLUMNS']['Type'] ) || isset( $result[0][0]['Type'] ) ) {
             return true;
         } else {
             return false;
         }
+*/
+        
+        if($this->hasField('created_by') && $this->hasField('modified_by') ) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
     
     function cachedFindAll($conditions = null, $fields = null, $order = null, $limit = null, $page = 1, $recursive = null) {
@@ -99,7 +108,17 @@ class AppModel extends Model {
         return $data[0];
     }
     
-    function afterSave() {
+    function afterSave($created) {
+        if ( $created && $this->hasField('created_by')) {
+            $this->saveField('created_by', $_SESSION['Auth']['User']['id']);
+        } elseif($this->hasField('modified_by')) {
+            $record = $this->read('modified_by');
+            // only save 'modified_by' if it different user is updating
+            if($record[$this->name]['modified_by'] =! $_SESSION['Auth']['User']['id']) {
+                $this->saveField('modified_by', $_SESSION['Auth']['User']['id']);
+            }
+        }
+        
         $this->__clearCachedData('_cached_data', 'model', '');
     }
     

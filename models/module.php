@@ -145,11 +145,13 @@ class Module extends AppModel {
                         }
                     }
                 }
-                $query = "INSERT INTO groups_module_actions(module_action_id, group_id) VALUES" . 
-                          implode($values_insert, ',');
-                
-                // restore group permissions of this module
-                $this->query($query);
+                if(count($values_insert) > 0) {
+                    $query = "INSERT INTO groups_module_actions(module_action_id, group_id) VALUES" . 
+                              implode($values_insert, ',');
+                    
+                    // restore group permissions of this module
+                    $this->query($query);
+                }
             }
         }
         

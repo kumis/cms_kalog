@@ -31,7 +31,7 @@ class MenusController extends AppController {
 			$this->flash(__('Invalid Menu', true), array('action'=>'index'));
 		}
         
-		if ($this->Menu->del($id)) {
+		if ($this->Menu->delete($id)) {
 			$this->flash(__('Menu deleted', true), array('action'=>'index'));
 		} else {
             // this is when delete operation failed
