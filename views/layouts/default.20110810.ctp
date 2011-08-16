@@ -8,15 +8,9 @@
    </title>
    <?php
         echo $html->meta('icon');		       
-		echo $html->css('style.css?20110115');
-		echo $this->Html->css('jquery-ui-1.8.13.custom');
-		echo $this->Html->css('ui.jqgrid');
-		
+		echo $html->css('style.css?20110115');        
         echo $html->script('jquery');
-        echo $html->script('jquery.scrollto.min');
-		echo $html->script('jquery-ui-1.8.13.custom.min');
-        echo $html->script('i18n/grid.locale-en');
-        echo $html->script('jquery.jqGrid.min');
+        echo $html->script('jquery.scrollto.min');        
         echo $scripts_for_layout;
     ?>
 </head>

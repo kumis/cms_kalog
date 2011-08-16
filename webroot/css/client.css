@@ -1,0 +1,396 @@
+/** ----------------------------------------------------------------------------
+ * General rules
+ */
+
+body {
+	font-family: Helvetica Neue, Arial,sans-serif;  
+	line-height: 1.5em;
+	font-size: 12px;
+	margin: 0;
+	padding: 0;
+	padding-top: 40px;
+	background-color: #e7e7de;
+	text-rendering: optimizeLegibility;
+}
+
+pre {
+	border: 1px solid #a0a0a0;
+	background-color: #d8d8d0;
+}
+
+body a, body a:visited {
+	color: #5080c0;
+	text-decoration: none;
+}
+
+body a:hover {
+	text-decoration: underline;
+}
+
+table {
+	margin-bottom: 20px;
+}
+
+table.DataTable tr:hover td {
+	background-color: #d0d0d0;
+}
+
+th {
+	padding: 4px;
+	background-color: #a0a0a0;
+}
+
+td {
+	padding: 4px;
+	/*background-color: #d8d8d0;*/
+	vertical-align: top;
+}
+
+.DataTable td {
+    background-color: #d8d8d0;
+}
+
+td label {
+	width: 100%;
+	display: block;
+	text-align: right;
+}
+
+h1, h2, h3, h4 {
+	margin-top: 0px;
+}
+
+h1 {
+	color: #A0A0A0;
+	font-size: 40px;
+	margin-bottom: 20px;
+}
+
+h2 {
+	color: #A0C050;
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+h3 {
+	color: #604030;
+	font-size: 17px;
+	margin-bottom: 7px;
+}
+
+h4 {
+	font-size: 14px;
+	margin-bottom: 0px;
+	color: #A0C050;
+}
+
+input, select, textarea {
+	padding: 3px;
+	border: 1px solid #808080;
+	background-color: white;
+	font-family: Helvetica Neue, Arial,sans-serif;
+	font-size: 12px;
+	width: 250px;
+}
+
+input.NumericStepper {
+    width: 100px;
+}
+
+button {
+	background-color: white;
+	font-family: Helvetica Neue, Arial,sans-serif;
+	font-size: 12px;
+	background-color: #5080C0;
+	border-bottom: 1px solid #808080;
+	line-height: 15px;
+	border-width: 1px;
+	color: #FFFFFF;
+	cursor: pointer;
+	padding: 3px 0.6em;
+	padding-bottom: 2px;
+}
+
+button:hover {
+	background-color: #80A0E0;
+}
+
+button.disabled, button.disabled:hover {
+	cursor: default;
+	background-color: #d0d0d0;
+}
+
+*:focus {
+	outline: none;
+}
+
+/** ----------------------------------------------------------------------------
+ * Son of suckerfish drop-downs
+ */
+ 
+.nav, .nav ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.nav a {
+	display: block;
+}
+
+.nav li a {
+	margin-bottom: 3px;
+}
+
+.nav li a:hover {
+	text-decoration: none;
+}
+
+.nav li {
+	float: left;
+	margin-left: 15px;
+}
+
+.nav li ul {
+	position: absolute;
+	/*width: 10em;*/
+	left: -999em;
+	z-index: 10;
+	background-color: #D8D8D0;
+	border: 1px solid #A0A0A0;
+	padding: 5px;
+}
+
+.nav li ul li {
+	line-height: 2em;
+	display: block;
+	float: none;
+	margin-left: 0px;
+}
+
+/* @todo Add this hover rule using JS for IE */
+.nav li:hover ul {
+	left: auto;
+}
+
+.nav li:hover ul li a:hover {
+	text-decoration: underline;
+}
+
+/** ----------------------------------------------------------------------------
+ * Useful classes
+ */
+
+.definition {
+	font-size: 16px;
+}
+
+.definition em {
+	color: #604030;
+}
+
+.Module {
+	border: 1px solid #A0A0A0;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+.block {
+	margin-bottom: 10px;
+	display: block;
+}
+
+.Popup {
+	display: none;
+	z-index: 10000;
+	background-color: #e7e7de;
+	border: 1px solid #A0A0A0;	
+	padding: 5px;
+}
+
+.Popup h2 {
+	margin-top: 10px;
+}
+
+.Panel {
+	background-color: #d8d8d0;
+	padding: 10px;
+}
+
+.VerticalMenu a {
+	display: block;
+	padding: 3px;
+	background-color: #d8d8d0;
+	margin-bottom: 5px;
+	border: 1px solid #A0A0A0;
+}
+
+.VerticalMenu a:hover {
+	text-decoration: none;
+	border: 1px solid #A0A0A0;
+	background-color: #E0E0E0;
+}
+
+.VerticalMenu a.selected {
+	background-color: #A0C050;
+	border: 1px solid #A0A0A0;
+}
+
+.DocumentBox, .DocumentBoxParked, .DocumentBoxStatic {
+	border: 1px solid #f0f0f0;
+	padding: 5px;
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	background: #d8d8d0;
+	height: 100px;
+	overflow-y: scroll;
+}
+
+.DocumentBoxStatic {
+	border: 1px solid #A0A0A0;
+	background-color: #e7e7de;
+}
+
+.DocumentBox:hover, .DocumentBoxParked:hover {
+	border: 1px solid #A0A0A0;
+	background-color: #e7e7de;
+	cursor: pointer;
+	background: #e7e7de;
+}
+
+
+.LayoutTable td {
+	padding: 10px;
+	background-color: #D0D0D0;
+}
+
+.LayoutTableTransparent td {
+	padding: 10px;
+	background-color: inherit;
+}
+
+.ui-spinner {position: relative}
+.ui-spinner-buttons {position: absolute}
+.ui-spinner-button {overflow: hidden}
+
+.F0border {border: 1px solid #F0F0F0}
+
+.Form input, .Form select {
+	display: block;
+	width: 150px;
+	margin-bottom: 15px;
+} 
+/** ----------------------------------------------------------------------------
+ * Header rules
+ */
+ 
+#header {
+	background-color: #D8D8D0;
+	height: 20px;
+	width: 100%;
+	position:fixed;
+	top: 0px;
+	border-bottom: 1px solid #604030;
+	color: #604030;
+	font-weight: medium;
+	line-height: 1em;
+	padding-top: 4px;
+	z-index: 1000; /* To deal with third-party CSS! This must always win. */
+}
+
+#header #logo {
+	margin-left: 5px;
+}
+
+#header #status {
+	float: right; 
+	margin-right: 10px;
+}
+
+#header #status #icons {
+	float: left; 
+}
+
+#header #status #icons span {
+	margin-right: 0.3em;
+	color: #a0c050;
+	font-size: 12px;
+}
+
+.icon {
+	font-weight: bold;
+}
+
+#header #status #message {
+	float: left;
+	font-size: 12px; 
+	color: #604030;	
+}
+
+/** ----------------------------------------------------------------------------
+ * Content rules
+ */
+ 
+#content {
+	padding: 20px;
+	padding-top: 0px;
+}
+
+/** ----------------------------------------------------------------------------
+ * Some jQueryUI overrides...
+ */
+
+#ui-datepicker-div a.ui-state-default {
+	background: #D8D8D0;
+	color: #404040;
+	border: 1px solid #E7E7DE;
+}
+
+#ui-datepicker-div a.ui-state-active {
+	background: #A0C050;
+	color: #404040;
+	border: 1px solid #E7E7DE;
+}
+
+#ui-datepicker-div a.ui-state-highlight {
+	background: #D8D8D0;
+	color: #A0C050;
+	border: 1px solid #E7E7DE;
+	font-weight:bold;
+}
+
+#ui-datepicker-div a.ui-state-hover {
+	background: #E7E7De;
+	border: 1px solid #A0A0A0;
+	text-decoration: none;
+}
+
+ul.ui-autocomplete {
+	height: 150px;
+	overflow-y: scroll
+}
+
+/* Tooltips */
+
+.tooltip {
+	display:none;
+	background-color: #604030;
+	width: 300px;
+	padding:10px;
+	color:#fff;	
+}
+
+.admin_tooltip {
+	display:none;
+	background-color: #d8d8d0;
+	border: 1px solid #604030;
+	width: auto;
+	padding:5px;
+	font-weight: normal;
+	text-align: left;
+	line-height: 2.5em;
+}
+
+
+
