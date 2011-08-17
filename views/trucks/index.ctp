@@ -35,13 +35,13 @@ echo $jqgrid->script($gridId, array(
 				'label' => 'Plate Number',
 			),
 			array(
-				'index' => 'Truck.driver_id',
-				'name' => 'Truck.driver_id',
+				'index' => 'Driver.first_name',
+				'name' => 'Driver.first_name',
 				'label' => 'Driver',
 			),
 			array(
-				'index' => 'Truck.trucking_company_id',
-				'name' => 'Truck.trucking_company_id',
+				'index' => 'TruckingCompany.name',
+				'name' => 'TruckingCompany.name',
 				'label' => 'Trucking Company',
 			),
 		),

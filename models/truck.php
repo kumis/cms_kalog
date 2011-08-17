@@ -2,6 +2,7 @@
 class Truck extends AppModel {
 	var $name = 'Truck';
 	var $displayField = 'plate_number';
+    var $actsAs = array('Containable');
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 	var $belongsTo = array(

@@ -12,7 +12,20 @@ class TrucksController extends AppController {
 	}
 	
 	function truck_list() {
-		$this->Jqgrid->find('Truck', array('fields' => array()));
+		$this->Truck->Behaviors->attach('Containable');
+		$this->Jqgrid->find('Truck', array(
+			'contain' => array(
+				'Driver.first_name',
+				'TruckingCompany.name'
+			),
+            'fields' => array(
+				"Truck.id",
+				"Truck.plate_number",
+				"Driver.first_name",
+				"TruckingCompany.name"
+			),
+			'recursive' => 0,
+		));
 	}
 
 	function view($id = null) {
