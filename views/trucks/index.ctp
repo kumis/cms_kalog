@@ -29,6 +29,11 @@ echo $jqgrid->script($gridId, array(
 	'width'     => 600,
 	'url'       => $url,
     'editurl'   =>$editUrl,
+    'exportOptions' => array(     // export configuration
+            'type' => 'csv',          // currently only 'csv' is supported
+            'filename' => 'trucks.csv', // if not specified, defaults to 'report.csv'
+        ),
+    
 	'colModel'  => array(
 			array(
 				'width'         => 50,
@@ -68,8 +73,10 @@ echo $jqgrid->script($gridId, array(
 				'name'          => 'data[Driver][first_name]',
 				'label'         => 'Driver',
                 'editable'      => true,
+                'edittype'      => "select",
                 'editoptions'   => array(
-                        'size'          => 10
+                        'size'          => 10,
+                        'value'         => $drivers
                     )
 			),
 			array(
@@ -79,7 +86,7 @@ echo $jqgrid->script($gridId, array(
 				'label'         => 'Trucking Company',
                 'editable'      => true,
                 'editoptions'   => array(
-                        'size'          => 10
+                        'size'          => 10,
                     )
 			),
 			array(
@@ -87,8 +94,10 @@ echo $jqgrid->script($gridId, array(
 				'name'          => 'data[TruckingCompany][name]',
 				'label'         => 'Trucking Company',
                 'editable'      => true,
+                'edittype'      => "select",
                 'editoptions'   => array(
-                        'size'          => 10
+                        'size'          => 10,
+                        'value'         => $truckingCompanies
                     )
 			),
 		),

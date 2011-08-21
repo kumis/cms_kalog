@@ -2,13 +2,15 @@
 class TrucksController extends AppController {
 	// add Jqgrid component and helpers in your class variables.
 	var $components = array('Cholesterol.Jqgrid');
-	var $helpers = array('Cholesterol.Jqgrid');
+	var $helpers = array('Cholesterol.Jqgrid', 'Cholesterol.Autocomplete');
 	
 	var $name = 'Trucks';
 
 	function index() {
 		//$this->Truck->recursive = 0;
 		//$this->set('trucks', $this->paginate());
+		$this->set('truckingCompanies', $this->Truck->TruckingCompany->find('list'));
+		$this->set('drivers', $this->Truck->Driver->find('list'));
 	}
 	
 	function truck_list() {
@@ -92,6 +94,9 @@ class TrucksController extends AppController {
             case 'edit' :
                 $this->Truck->saveAll($this->data);
                 //$this->Driver->save($this->data);
+                break;
+            case 'add' :
+                $this->Truck->save($this->data);
                 break;
         }
     }

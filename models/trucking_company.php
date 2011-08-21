@@ -2,6 +2,7 @@
 class TruckingCompany extends AppModel {
 	var $name = 'TruckingCompany';
 	var $displayField = 'name';
+    var $order = array("TruckingCompany.id" => "ASC");
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 	var $hasMany = array(
