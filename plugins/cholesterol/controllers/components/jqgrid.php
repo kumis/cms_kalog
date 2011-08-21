@@ -308,7 +308,10 @@ class JqgridComponent extends Object {
 
 						$fieldName = $gridModel . '.' . $gridField;
 						$response['rows'][$i][$fieldName] = $row[$gridModel][$gridField];
-					}
+                        
+						$fieldNameData = 'data['.$gridModel . '][' . $gridField.']';
+						$response['rows'][$i][$fieldNameData] = $row[$gridModel][$gridField];
+                    }
 				}
 			}
 		}

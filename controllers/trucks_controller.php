@@ -21,7 +21,9 @@ class TrucksController extends AppController {
             'fields' => array(
 				"Truck.id",
 				"Truck.plate_number",
+				"Driver.id",
 				"Driver.first_name",
+				"TruckingCompany.id",
 				"TruckingCompany.name"
 			),
 			'recursive' => 0,
@@ -84,5 +86,14 @@ class TrucksController extends AppController {
 		$this->Session->setFlash(__('Truck was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
+    
+    function jqgrid_edit() {        
+        switch ($this->params['form']['oper']) {
+            case 'edit' :
+                $this->Truck->saveAll($this->data);
+                //$this->Driver->save($this->data);
+                break;
+        }
+    }
 }
 ?>
