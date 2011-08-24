@@ -14,7 +14,8 @@
         <div class="sidebarcb">
             <?php
                 echo $tree->generate($menus['lists'][$menu['id']], array(
-                    'class' => 'sidebar_menus',
+                    'class' => 'Tree',
+                    'id'    => 'DemoTree',
                     'model' => 'Menu',
                     'alias' => 'name'
                 ));
