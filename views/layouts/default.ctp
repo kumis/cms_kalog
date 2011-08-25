@@ -1,91 +1,113 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
- "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
-<head>
-   <title>
-        <?php echo $session->read('Site.site_name'); ?>
-		<?php echo ' :: ' . $title_for_layout; ?>
-   </title>
-   <?php
-        echo $html->meta('icon');		       
-		echo $html->css('style.css?20110115');
-		echo $this->Html->css('jquery-ui-1.8.13.custom');
-		echo $this->Html->css('ui.jqgrid');
-		
-        echo $html->script('jquery');
-        echo $html->script('jquery.scrollto.min');
-		echo $html->script('jquery-ui-1.8.13.custom.min');
-        echo $html->script('i18n/grid.locale-en');
-        echo $html->script('jquery.jqGrid.min');
-        echo $scripts_for_layout;
-    ?>
-</head>
-<body>
-<div class="tophdw">
-    <div id="tophd" class="tophdc">
-        <?php
-            echo $html->image('logo');
-        ?>
-        <h1>
-            <?php echo $html->link($session->read('Site.site_name'), '/');?>
-        </h1>
-        <div id="tophdnav">
-            <nobr>
-                <span>Welcome back, </span><strong><?php echo $profile['name'];?></strong>
-                |
-                <span><?php echo $html->link(__('Home', true), '/');?></span> |
-                <span><?php echo $html->link(__('Preferences', true), '/users/preferences');?></span> |
-                <span><?php echo $html->link(__('Help', true), '#');?></span> |
-                <span><?php echo $html->link(__('Logout', true), '/users/logout');?></span>
-            </nobr>
-        </div>
-        <div class="clear"></div>
-    </div>
-</div>
-<div class="tophdw" id="subtophdw">
-    <div id="subtophd" class="tophdc">
-        <div class="heading headingFirst">Pencarian sederhana</div>
-        <form method="get" action="index.php" id="simpleSearch" name="simpleSearch">
-            <input type="text" name="keywords" size="50"/>
-            <input type="submit" class="button marginTop" value="Pencarian" name="search"/>
-        </form>
-        <span class="headingSeparator">|</span>
-        <div class="heading">
-            <a href="/?search" class="menu">Pencarian tingkat lanjut</a>
-        </div>
-        <span class="headingSeparator">|</span>
-        <div id="headingHelp" class="heading">
-            <a href="index.php?p=help" class="menu">Search Help</a>
-        </div>
-    </div>
-</div>
-<div id="custom-doc" class="yui-t2">
-    <div id="hd" role="banner">
-        <?php
-            if ($session->check('Message.flash')):
-                echo $session->flash();
-                echo $html->scriptBlock('$(function(){$.scrollTo( "#hd", 1000);});');
-            endif;
-        ?>
-    </div>
-    <div id="bd" role="main">
-        <div id="yui-main">
-            <div class="yui-b">
-                <div class="yui-g">
-                    <div id="maincontent" class="controllerName actionName">
-                        <?php echo $content_for_layout;?>
-                    </div>
+	<head>
+		<?php echo $this->Html->charset(); ?>
+		<title><?php echo 'AppCore :: ' . $title_for_layout; ?></title>
+		<?php
+			echo $html->meta('icon');		       
+			echo $html->css('960-12gridFluid');        
+			 
+			echo $html->css('layout');    
+			echo $html->css('text');        
+			echo $html->css('form');        
+			echo $html->css('jquery-simpleTreeMenu-1.0.0');
+			
+			echo $html->script('jquery-1.6.1.min');
+			echo $html->script('jquery-ui-1.8.13.custom.min');
+			echo $html->script('jquery.formalize');
+			echo $html->script('jquery-fluid16');
+			echo $html->script('jquery-simpleTreeMenu-1.0.0');
+			
+			echo $scripts_for_layout;
+			echo "<script type='text/javascript'>\n";
+				echo "$(function(){\n";
+					if ($session->check('Message.flash')):
+						echo "$(window).load(function(){".
+							 "setTimeout(function(){".
+								"$('#flashMessage').fadeOut('slow');".
+							 "}, 3600);".
+						"});";
+					endif;
+				echo "\n});";
+			echo "</script>";
+		?>
+	</head>
+	<body>
+		<div class="tophdw">
+                <div id="tophd" class="tophdc">
+                <?php
+                    echo $html->image('logo');
+                ?>
+                <h1>
+                    <?php echo $html->link($session->read('Site.site_name'), '/');?>
+                </h1>
+                <div id="tophdnav">
+                    <nobr>
+                        <span>Welcome back, </span><strong><?php echo $profile['name'];?></strong>
+                        |
+                        <span><?php echo $html->link(__('Home', true), '/');?></span> |
+                        <span><?php echo $html->link(__('Preferences', true), '/users/preferences');?></span> |
+                        <span><?php echo $html->link(__('Help', true), '#');?></span> |
+                        <span><?php echo $html->link(__('Logout', true), '/users/logout');?></span>
+                    </nobr>
                 </div>
+                <div class="clear"></div>
             </div>
         </div>
-        <div role="navigation" class="yui-b" id="sb">
-            <?php echo $this->element('menu.sidebar', array(
-                    'cache' => array('time'=> "+14 days", 'key' => 'group_id_' . $profile['group_id'])
-                ));
-            ?>
-        </div>	
-	</div>
-    <div id="ft" role="contentinfo">
+		<div class="container_12">
+			
+			<div class="grid_12">
+
+				<?php 
+					echo $session->flash(); 
+					echo $session->flash('auth');
+				?>
+			</div>
+			<div class="clear"></div>
+			<div class="grid_3">
+				<div class="box"> 
+					 
+					<div class="block" id="right-menu"> 
+						<div class="sidebar">
+                            <div class="sidebarc">                       
+                                <div class='sidebarch'>
+                                    <h2> 
+                                    Application Menu
+                                    </h2>
+                                </div>
+                                <div class='sidebarcb'>
+                                    <ul class="Tree" id="DemoTree"> 
+                                        <li> 
+                                            <span>System and Utility</span>
+                                            <ul>
+                                                <li>
+                                                    <span>Master Data</span>
+                                                    <ul>
+                                                        <li><a href="Carriages/index">Carriage</a></li> 
+                                                        <li><a href="Schedules/index">Schedule</a></li> 
+                                                        <li><a href="Locomotives/index">Locomotive</a></li> 
+                                                        <li><a href="Freights/index">Freight</a></li> 
+                                                    </ul> 
+                                                </li> 
+                                            </ul> 
+                                        </li> 
+                                    </ul>
+                                    </div>
+                               </div>             
+						</div>
+                         <?php echo $this->element('menu.sidebar', array(
+                                    'cache' => array('time'=> "+14 days", 'key' => 'group_id_' . $profile['group_id'])
+                            ));
+                        ?>		
+					</div> 
+				</div> 
+			</div>
+			<div class="grid_9"> 
+				<?php echo $content_for_layout; ?>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div id="ft" role="contentinfo">
         <div id="ftl">
             <p>
                 <strong><?php echo $session->read('Site.site_name');?></strong>
@@ -109,8 +131,13 @@
         </div>
         <div class="clear"></div>
     </div>
-</div>
-<div id="loading"></div>
-<?php echo $this->element('sql_dump'); ?>
-</body>
+    <div id="loading"></div>
+        <?php echo $this->element('sql_dump'); ?>
+       
+	</body>
 </html>
+<script>
+	$(document).ready(function() {
+		$('.Tree').simpleTreeMenu();
+	});
+</script>
