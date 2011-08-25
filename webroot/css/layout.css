@@ -1,11 +1,103 @@
 body {
-	background: #eee;
-	border-top: 5px solid #000;
+	background: #fff;
+	border-top: 5px solid #eee;
 	color: #333;
 	font-size: 11px;
 	padding: 0 0 40px;
 }
 
+/*header */
+.tophdw {
+    width: 100%;
+    min-width: 750px;
+    background-color:#EFEFEF;
+    border-bottom:1px solid #CCCCCC;
+}
+.tophdc {
+    width: 95%;
+    min-width: 750px;
+    margin:auto;
+    text-align:left;
+}
+/* 1st top header */
+#tophd {
+    height: 44px;
+}
+#tophd h1 {
+    float: left;
+    font-family: georgia;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    word-spacing: 2px;
+    font-size: 22px;
+    padding-top: 10px;
+}
+#tophd h1 a {
+    color: #000;
+    text-decoration: none;
+}
+#tophd h1 a:hover {
+    text-decoration: underline;
+}
+#tophd img {
+    float: left;
+    margin: 3px 6px 0 0;
+}
+#tophdnav {
+    padding: 10px 0;
+    float: right;
+}
+#tophdnav a {
+    font-weight: bold;
+    color: #333;
+}
+#tophdnav strong {
+    font-size: 12px;
+}
+/* 2nd top header */
+#subtophdw {
+    background-color: #FFF9DF;
+    margin-bottom: 10px;
+}
+#subtophd {
+    height: 27px;
+}
+
+/* sidebar */
+.sidebar {
+    -moz-border-radius: 5px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    padding: 1px;
+    margin-bottom: 10px;
+}
+.sidebarc {
+    background-color: #ffffff;
+}
+.sidebarch {
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    color: #999;
+    text-transform: uppercase;
+    
+    text-shadow:0 1px 0 rgba(255, 255, 255, 0.8);
+    padding: 2px 4px 3px 10px;
+    background: #DFDFDF url(../img/gray-grad.png) repeat-x left top;
+    margin-bottom: 1px;
+}
+.sidebarch h2 {
+    font-size: 16px;
+}
+.sidebarcb {
+    -moz-border-radius-bottomleft: 5px;
+    -moz-border-radius-bottomright: 5px;
+    background-color: #efefef;
+    padding: 3px 4px 6px 10px;
+}
+.sidebarcb li {
+    list-style: square;
+    margin-left: 15px;
+}
 /* header layout
 ------------------------------------------------*/
 
@@ -21,7 +113,7 @@ body {
 /* boxes
 ----------------------------------------------- */
 .box {
-	background:#ddd;
+	background:#fff;
 	margin-bottom:20px;
 	padding:10px 10px 1px 10px;
 }
@@ -29,9 +121,8 @@ body {
 	font-size:1em;
 	font-weight:normal;
 	text-transform:uppercase;
-	color:#fff;
-	background:#333;
-	margin:-10px -10px 0 -10px;
+	color:#1E1EE0;
+	margin: 0 0 5px -10px;
 	padding:6px 12px;
 }
 .box h2 a,
@@ -407,4 +498,21 @@ input.search.button {
 }
 #kwick .four {
 	background: #999;
+}
+/* footer */
+#ft {
+    border-top: 1px solid #efefef;
+    margin-top: 20px;
+    padding-top: 10px;
+    font-size: 10px;
+    font-family: arial,helvetica,clean,sans-serif;
+    line-height: normal;
+    letter-spacing: 1px;
+    color: #999;
+}
+#ftl {
+    float: left;
+}
+#ftr {
+    float: right;
 }
