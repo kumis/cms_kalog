@@ -142,6 +142,7 @@ li {
   For IE6 + IE7.
 */
   display: list-item;
+  list-style-type: none;
 }
 
 caption {

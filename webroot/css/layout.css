@@ -165,6 +165,117 @@ div.menu .block {
 	padding-top:0;
 }
 
+/* groups and permission */
+.gpbc {
+    min-width: 500px;
+    width: auto;
+}
+.gpb {
+    float: left;
+    clear: none;
+    border: 1px solid #999;
+    background-color: #efefef;
+    margin: 0 20px 25px 0;
+}
+ul.gpba {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #fff;
+}
+.gpba li {
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #fff;
+    padding: 2px 4px;
+    margin: 0;
+    
+}
+.gpba .gpba-label {
+    color: #999;
+    font-style: italic;
+    width: 100px;
+    display: inline-block;
+    vertical-align: top;
+    overflow:hidden;
+}
+.gpba .gpba-val {
+    float: right;
+    display: inline-block;
+    vertical-align: top;
+}
+/* Notices and Errors */
+div.message {
+	clear: both;
+	color: #900;
+	font-size: 140%;
+	font-weight: bold;
+	margin: 1em 0;
+}
+div.error-message {
+	clear: both;
+	color: #900;
+    background: url(../img/warning.png) top left no-repeat;
+	font-weight: bold;
+    font-size: 10px;
+    padding: 2px 0 4px 20px;
+    margin: 0;
+}
+p.error {
+    border: 1px solid #000;
+	background-color: #e32;
+	color: #fff;
+	font-family: Courier, monospace;
+	font-size: 120%;
+	line-height: 140%;
+	padding: 0.8em;
+	margin: 1em 0;
+}
+p.error em {
+	color: #000;
+	font-weight: normal;
+	line-height: 140%;
+}
+.notice {
+	background: #ffcc00;
+	color: #000;
+	display: block;
+	font-family: Courier, monospace;
+	font-size: 120%;
+	line-height: 140%;
+	padding: 0.8em;
+	margin: 1em 0;
+}
+.success {
+	background: #C6F9C9 url(../img/info.png) 10px 50% no-repeat;
+    border: 2px solid #9BD39E;
+}
+.flash_box {
+    margin-bottom: 10px;
+    width: auto;
+    left: 0%;
+    padding: 0.5em;
+    position: relative;
+    font-weight: bold;
+    color: #fff;
+}
+.flash_info {
+    background-color: #09C;
+}
+.flash_success {
+    border: 2px solid #9BD39E;
+    background: #C6F9C9 url(../img/success.png) 10px 50% no-repeat;
+    color: #4F7F51;
+    padding: 10px 5px 8px 36px;
+}
+.flash_warning {
+    background-color: #F60;
+}
+.flash_error, #authMessage {
+    background: #CF3333 url(../img/error.png) 10px 50% no-repeat;
+    border: 2px solid #990000;
+    padding: 10px 5px 8px 36px;
+}
+#authMessage {
+    color: #fff;
+}
 
 /* paragraphs, quotes and lists
 ----------------------------------------------- */
