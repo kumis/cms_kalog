@@ -1,13 +1,52 @@
 <?php
 class TruckingCompaniesController extends AppController {
-
+	// add Jqgrid component and helpers in your class variables.
+	var $components = array('Cholesterol.Jqgrid');
+	var $helpers = array('Cholesterol.Jqgrid', 'Cholesterol.Autocomplete');
+    
 	var $name = 'TruckingCompanies';
 
 	function index() {
-		$this->TruckingCompany->recursive = 0;
-		$this->set('truckingCompanies', $this->paginate());
+//		$this->TruckingCompany->recursive = 0;
+//		$this->set('truckingCompanies', $this->paginate());
+		$this->set('trucks', $this->TruckingCompany->Truck->find('list'));     
+   		$this->set('truckingCompanies', $this->TruckingCompany->find('list'));
+		$this->set('drivers', $this->TruckingCompany->Truck->Driver->find('list'));
+
+	}
+	
+//==============================================================================
+// Start of JqGrid functions
+//==============================================================================
+	function jqgrid_list() {
+		$this->TruckingCompany->Behaviors->attach('Containable');
+		$this->Jqgrid->find('TruckingCompany', array(
+			'contain' => array(
+				'Truck.id'
+			),
+            'fields' => array(
+				"TruckingCompany.id",
+				"TruckingCompany.name"
+			),
+			'recursive' => 0,
+		));
 	}
 
+    function jqgrid_edit() {        
+        switch ($this->params['form']['oper']) {
+            case 'edit' :
+                $this->TruckingCompany->saveAll($this->data);
+                //$this->Driver->save($this->data);
+                break;
+            case 'add' :
+                $this->TruckingCompany->save($this->data);
+                break;
+        }
+    }
+//==============================================================================
+// End of JqGrid functions
+//==============================================================================
+    
 	function view($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid trucking company', true));

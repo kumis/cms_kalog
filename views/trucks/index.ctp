@@ -2,7 +2,7 @@
 $gridId = 'trucks';
 $url = Router::url(array(
 	'controller' => 'trucks',
-	'action' => 'truck_list',
+	'action' => 'jqgrid_list',
 	'ext' => 'json',
 	)
 );

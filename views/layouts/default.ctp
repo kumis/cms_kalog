@@ -10,6 +10,8 @@
 			echo $html->css('layout');    
 			echo $html->css('text');        
 			echo $html->css('form');        
+			echo $html->css('jquery-ui-1.8.13.custom');
+			echo $html->css('ui.jqgrid');
 			echo $html->css('jquery-simpleTreeMenu-1.0.0');
 			
 			echo $html->script('jquery-1.6.1.min');
@@ -17,6 +19,8 @@
 			echo $html->script('jquery.formalize');
 			echo $html->script('jquery-fluid16');
 			echo $html->script('jquery-simpleTreeMenu-1.0.0');
+			echo $html->script('i18n/grid.locale-en');
+			echo $html->script('jquery.jqGrid.src');
 			
 			echo $scripts_for_layout;
 			echo "<script type='text/javascript'>\n";

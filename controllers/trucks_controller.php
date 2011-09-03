@@ -13,7 +13,7 @@ class TrucksController extends AppController {
 		$this->set('drivers', $this->Truck->Driver->find('list'));
 	}
 	
-	function truck_list() {
+	function jqgrid_list() {
 		$this->Truck->Behaviors->attach('Containable');
 		$this->Jqgrid->find('Truck', array(
 			'contain' => array(
