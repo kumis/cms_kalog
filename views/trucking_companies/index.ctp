@@ -42,10 +42,8 @@ Trucking Company
 <br/> 
 
 <div id="truck_detail_container">
-    Truck 
     <table id="<?php echo $gridIdDetail;?>"></table>
     <div id="<?php echo $gridIdDetail;?>_pager"></div>
-    <a href="javascript:void(0)" id="ms1">Get Selected id's</a>
 </div>
 
 <script type="text/javascript">
@@ -121,17 +119,17 @@ Trucking Company
         'rowNum'        : 10, 
         'rowList'       : [10,20,30], 
         'pager'         : gridIdMasterPager, 
-        'sortname'      : 'id',
+        'sortname'      : 'TruckingCompany.id',
         'viewrecords'   : true, 
         'sortorder'     : "asc",
-        'multiselect'   : false ,
+        'multiselect'   : true ,
         "jsonReader"    : {
                 "repeatitems": false,
                 "id": "id"
             },
         "onCellSelect" : function (ids, cellId) {
             // the cellId points to the first cell defined in colModel
-            if(cellId == 0) {
+            if(cellId == 1) {
                 detailDialog.dialog("open");
                 if (ids == null) {
                     ids = 0;
@@ -161,7 +159,7 @@ Trucking Company
             "edit": true,
             "del": true,
             "search": true
-        }
+        },{},{},{},{multipleSearch:true}
     );
 
     // =========================================================================
@@ -175,7 +173,6 @@ Trucking Company
     var truckGrid = $("#"+gridIdDetail).jqGrid({
         'caption'       : "Trucks",
         'width'         : 500,
-        "gridModel"     : true,
         'url'           : urlDetail,
         'datatype'      : 'json',
         'editurl'       : editUrlDetail,
@@ -238,7 +235,7 @@ Trucking Company
         'sortname'      : 'Truck.id',
         'viewrecords'   : true, 
         'sortorder'     : "asc",
-        'multiselect'   : false ,
+        'multiselect'   : true ,
         "jsonReader"    : {
                 "repeatitems": false,
                 "id": "id"
@@ -253,7 +250,7 @@ Trucking Company
             "edit": true,
             "del": true,
             "search": true
-        }
+        },{},{},{},{multipleSearch:true}
     );
 
     //]]>
