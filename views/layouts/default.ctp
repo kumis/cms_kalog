@@ -8,14 +8,14 @@
 			echo $html->css('960-12gridFluid');        
 			 
 			echo $html->css('layout');    
-			echo $html->css('text');        
-			echo $html->css('form');        
-			echo $html->css('jquery-ui-1.8.13.custom');
+			echo $html->css('text');
+			echo $html->css('form');
+			echo $html->css('jquery-ui-1.8.16.custom');
 			echo $html->css('ui.jqgrid');
 			echo $html->css('jquery-simpleTreeMenu-1.0.0');
 			
 			echo $html->script('jquery-1.6.1.min');
-			echo $html->script('jquery-ui-1.8.13.custom.min');
+			echo $html->script('jquery-ui-1.8.16.custom.min');
 			echo $html->script('jquery.formalize');
 			echo $html->script('jquery-fluid16');
 			echo $html->script('jquery-simpleTreeMenu-1.0.0');
@@ -40,7 +40,7 @@
 		<div class="tophdw">
                 <div id="tophd" class="tophdc">
                 <?php
-                    echo $html->image('logo');
+                    echo $html->image('logo', array('height' => 40, 'weight' => 20));
                 ?>
                 <h1>
                     <?php echo $html->link($session->read('Site.site_name'), '/');?>

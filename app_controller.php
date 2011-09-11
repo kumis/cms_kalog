@@ -35,7 +35,7 @@ class AppController extends Controller {
         'menu', 'menu_select', 'menu_select_type', 'login', 'logout', 'preferences',
         'display', 'getuser', 'getunit',
         '__setAdditionals', 'istransacationexists', 'permission_denied', 'fusionxml','authenticate',
-        'gateinout','getstatus','gateout'
+        'gateinout','getstatus','gateout','jqgrid_edit','jqgrid_list'
     );
     var $basicOperations = array(
         'add' => false, 'edit' => false, 'delete' => false,

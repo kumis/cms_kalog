@@ -1,1 +1,1 @@
-<h1><?php echo __('Selamat datang di Aplikasi Parkir Online Management System', true);?></h1>
+<h1><?php echo __('Selamat datang', true);?></h1>
