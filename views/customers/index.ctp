@@ -2,16 +2,16 @@
 // =================================================================
 // Trucks
 // =================================================================
-$gridId       = 'truck';
-$primaryKey   = "Truck.id";
+$gridId       = 'cusutomer';
+$primaryKey   = "Customer.id";
 $url = Router::url(array(
-        'controller'    => 'trucks',
+        'controller'    => 'customers',
         'action'        => 'jqgrid_list',
         'ext'           => 'json',
 	)
 );
 $editUrl = Router::url(array(
-        'controller'    => 'trucks',
+        'controller'    => 'customers',
         'action'        => 'jqgrid_edit',
         'ext'           => 'json',
 	)
@@ -19,7 +19,7 @@ $editUrl = Router::url(array(
 
 ?>
 
-<div id="truck_container">
+<div id="customer_container">
     <table id="<?php echo $gridId;?>"></table>
     <div id="<?php echo $gridId;?>_pager"></div>
 </div>
@@ -39,10 +39,9 @@ $editUrl = Router::url(array(
     //  Script
     // =========================================================================
     
-    var truckGrid = $("#"+gridId).jqGrid({
-        'caption'       : "Trucks",
+    var customerGrid = $("#"+gridId).jqGrid({
+        'caption'       : "Customer",
         'width'         : 500,
-        "gridModel"     : true,
         'url'           : url,
         'datatype'      : 'json',
         'editurl'       : editUrl,
@@ -50,49 +49,33 @@ $editUrl = Router::url(array(
         'colModel'      : [
             {
                 'width'         : 50,
-                'index'         : 'Truck.id',
-                'name'          : 'data[Truck][id]',
+                'index'         : 'Customer.id',
+                'name'          : 'data[Customer][id]',
                 'label'         : 'Id'
                 
             },
             {
                 'width'         : 50,
-                'index'         : 'TruckingCompany.id',
-                'name'          : 'data[Truck][id]',
+                'index'         : 'ContactPerson.id',
+                'name'          : 'data[ContactPerson][id]',
                 'hidden'        : true,
                 'label'         : 'Id',
+                'editable'      : true
+            },
+            {
+                'width'         : 50,
+                'index'         : 'ContactPerson.first_name',
+                'name'          : 'data[ContactPerson][first_name]',
+                'label'         : 'First Name',
                 'editable'      : true
                 
             },
             {
                 'width'         : 50,
-                'index'         : 'Truck.plate_number',
-                'name'          : 'data[Truck][plate_number]',
+                'index'         : 'Customer.name',
+                'name'          : 'data[Customer][name]',
                 'editable'      : true,
-                'label'         : 'Plate Number',
-                'editoptions'   : 
-                    {
-                        'size'          : 10
-                    }                    
-            },
-            {
-                'width'         : 50,
-                'index'         : 'Driver.id',
-                'name'          : 'data[Driver][id]',
-                'editable'      : true,
-                'hidden'        : true,                
-                'label'         : 'Plate Number',
-                'editoptions'   : 
-                    {
-                        'size'          : 10
-                    }                    
-            },
-            {
-                'width'         : 50,
-                'index'         : 'Driver.first_name',
-                'name'          : 'data[Driver][first_name]',
-                'editable'      : true,
-                'label'         : 'Driver Name',
+                'label'         : 'Name',
                 'editoptions'   : 
                     {
                         'size'          : 10
@@ -102,7 +85,7 @@ $editUrl = Router::url(array(
         'rowNum'        : 10, 
         'rowList'       : [10,20,30], 
         'pager'         : gridIdPager, 
-        'sortname'      : 'Truck.id',
+        'sortname'      : 'Customer.id',
         'viewrecords'   : true, 
         'sortorder'     : "asc",
         'multiselect'   : true ,
@@ -112,7 +95,7 @@ $editUrl = Router::url(array(
             }
     });
     
-    var truckGrid = $("#"+gridId).jqGrid(
+    var CustomerGridNav = $("#"+gridId).jqGrid(
         'navGrid', 
         "#"+gridIdPager,
         {
