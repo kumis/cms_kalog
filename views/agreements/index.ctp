@@ -84,10 +84,39 @@ Agreement
     <?php
         if ( isset($autocompleteData) && !empty($autocompleteData) ):
             foreach ($autocompleteData as $acd):
-                    echo 'var ' . $acd . '_codes = ' . ${$acd . '_names'} . ';';    
+                    echo 'var ' . $acd . '_codes = ' . ${$acd . '_names'} . ';';
+                    echo
+                        'var ' . $acd . '_code_params = {
+                            minLength:0, source:' . $acd . '_codes,
+                            focus:function(e, ui){
+                                
+                                $(e.target).val( ui.item.name );
+                                //alert($(e.target).val( ));
+                                return false;
+                                },
+                            select:function(e, ui){
+                                alert($(e.target));
+                                var row = $(e.target).parent().parent();
+                                
+                                $(e.target).val( ui.item.name );
+                                $("input[name*=' . $acd . '_id]").val( ui.item.id );
+                                //$(".' . $acd . '_description", row).val( ui.item.description );
+                                return false;
+                            }
+                        };';    
             endforeach;
         endif;
     ?>
+    
+        customerAutoComplete = function (elem) {
+            
+            $(elem).autocomplete(customer_code_params).data( "autocomplete" )._renderItem = function( ul, item ) {
+                return $( "<li></li>" )
+				.data( "item.autocomplete", item )
+				.append( "<a>" + item.name + "</a>" )
+				.appendTo( ul );
+		};
+        }
   
     var agreementGrid = $("#"+gridIdMaster).jqGrid({
         'caption'       : "Agreements",
@@ -132,33 +161,8 @@ Agreement
                 'editoptions'   : 
                     {
                         'size'          : 10,
+                        'dataInit'      : customerAutoComplete
                         
-                        'dataInit': function(el) {
-                                setTimeout(function(){
-                                if(jQuery.ui) { 
-                                    if(jQuery.ui.autocomplete){
-                                        jQuery(el).autocomplete({
-                                            'appendTo':'body',
-                                            'disabled':false,
-                                            'delay':300,
-                                            'minLength':1,
-                                            'source':function (request, response){
-                                                request.acelem = 'data[Customer][name]';
-                                                request.oper = 'autocmpl';
-                                                $.ajax({
-                                                   // url: "grid.php",
-                                                    dataType: "json",
-                                                    data: customer_codes,
-                                                    type: "GET",
-                                                    error: function(res, status) {
-                                                    alert(res.status+" : "+res.statusText+". Status: "+status);
-                                                    },
-                                                    success: function( data ) {
-                                                                response( data );
-                                                    }
-                                                });
-                                            }});
-                                    jQuery(el).autocomplete('widget').css('font-size','11px');} }},200);}
                                          
                         }, 
                 'editrules': { required: true},
