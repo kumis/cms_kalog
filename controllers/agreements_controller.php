@@ -6,6 +6,10 @@ class AgreementsController extends AppController{
 
    
    function index(){
+       $customers = $this->__setJSONForAutocomplete('Customer', $this->Agreement,'customer', array(
+       'name'=>'name'));
+       
+       //$this->set('autocompleteData',$customers);
 		parent::index();
 	}
 //==============================================================================
