@@ -1,5 +1,4 @@
 <?php
-
 // =================================================================
 // Master : Trucking Companies
 // =================================================================
@@ -81,6 +80,15 @@ Agreement
     // =========================================================================
     // Master Script
     // =========================================================================
+    /*dt_autocomplete**/
+    <?php
+        if ( isset($autocompleteData) && !empty($autocompleteData) ):
+            foreach ($autocompleteData as $acd):
+                    echo 'var ' . $acd . '_codes = ' . ${$acd . '_names'} . ';';    
+            endforeach;
+        endif;
+    ?>
+  
     var agreementGrid = $("#"+gridIdMaster).jqGrid({
         'caption'       : "Agreements",
         'width'         : 800,
@@ -109,7 +117,7 @@ Agreement
             {
                 'width'         : 50,
                 'index'         : 'Customer.name',
-                'name'          : 'data[Agreement][customner_id]',
+                'name'          : 'data[Agreement][customer_id]',
                 'editable'      : true,
                 'hidden'        : true,
                 'label'         : 'Customer Name' 
@@ -119,14 +127,43 @@ Agreement
                 'width'         : 50,
                 'index'         : 'Customer.name',
                 'name'          : 'data[Customer][name]',
-                'editable'      : true,
-                'edittype'      : 'select', 
+                'editable'      : true, 
                 'label'         : 'Customer Name',
                 'editoptions'   : 
                     {
                         'size'          : 10,
                         
-                    }                    
+                        'dataInit': function(el) {
+                                setTimeout(function(){
+                                if(jQuery.ui) { 
+                                    if(jQuery.ui.autocomplete){
+                                        jQuery(el).autocomplete({
+                                            'appendTo':'body',
+                                            'disabled':false,
+                                            'delay':300,
+                                            'minLength':1,
+                                            'source':function (request, response){
+                                                request.acelem = 'data[Customer][name]';
+                                                request.oper = 'autocmpl';
+                                                $.ajax({
+                                                   // url: "grid.php",
+                                                    dataType: "json",
+                                                    data: customer_codes,
+                                                    type: "GET",
+                                                    error: function(res, status) {
+                                                    alert(res.status+" : "+res.statusText+". Status: "+status);
+                                                    },
+                                                    success: function( data ) {
+                                                                response( data );
+                                                    }
+                                                });
+                                            }});
+                                    jQuery(el).autocomplete('widget').css('font-size','11px');} }},200);}
+                                         
+                        }, 
+                'editrules': { required: true},
+                
+                            
             },
             {
                 'width'         : 50,
@@ -161,6 +198,11 @@ Agreement
         'viewrecords'   : true, 
         'sortorder'     : "asc",
         'multiselect'   : false ,
+      //  'postData'      :{'oper':'grid'},
+        'prmNames'      :{
+                                'deloper':'del',"excel":"excel","subgrid":"subgrid","totalrows":"totalrows",
+                                'autocomplete':'autocmpl'
+                        },
         "jsonReader"    : {
                 "repeatitems": false,
                 "id": "id"
@@ -280,7 +322,7 @@ Agreement
         'rowNum'        : 10, 
         'rowList'       : [10,20,30], 
         'pager'         : gridIdDetailPager, 
-        'sortname'      : 'Truck.id',
+        'sortname'      : 'AgreementsPacket.id',
         'viewrecords'   : true, 
         'sortorder'     : "asc",
         'multiselect'   : false ,
