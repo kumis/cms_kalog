@@ -18,6 +18,7 @@ SET search_path = public, pg_catalog;
 -- Dependencies: 478 7
 -- Name: generatecontainertype(); Type: FUNCTION; Schema: public; Owner: postgres
 --
+CREATE LANGUAGE plpgsql;
 
 CREATE FUNCTION generatecontainertype() RETURNS integer
     LANGUAGE plpgsql
