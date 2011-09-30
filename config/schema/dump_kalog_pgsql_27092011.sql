@@ -141,7 +141,7 @@ SELECT pg_catalog.setval('agreements_id_seq', 1, false);
 
 
 --
--- TOC entry 1668 (class 1259 OID 17325)
+-- TOC entry 1662 (class 1259 OID 17325)
 -- Dependencies: 7
 -- Name: agreements_packets; Type: TABLE; Schema: public; Owner: cms_kalog; Tablespace: 
 --
@@ -150,15 +150,17 @@ CREATE TABLE agreements_packets (
     id integer NOT NULL,
     agreement_id integer,
     packet_id integer,
-    charge money
+    freetime integer,
+    penalty money,
+    deposit money,
 );
 
 
 ALTER TABLE public.agreements_packets OWNER TO cms_kalog;
 
 --
--- TOC entry 1669 (class 1259 OID 17328)
--- Dependencies: 1668 7
+-- TOC entry 1663 (class 1259 OID 17328)
+-- Dependencies: 7 1662
 -- Name: agreements_packets_id_seq; Type: SEQUENCE; Schema: public; Owner: cms_kalog
 --
 
@@ -173,8 +175,8 @@ CREATE SEQUENCE agreements_packets_id_seq
 ALTER TABLE public.agreements_packets_id_seq OWNER TO cms_kalog;
 
 --
--- TOC entry 2328 (class 0 OID 0)
--- Dependencies: 1669
+-- TOC entry 2310 (class 0 OID 0)
+-- Dependencies: 1663
 -- Name: agreements_packets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cms_kalog
 --
 
@@ -182,13 +184,19 @@ ALTER SEQUENCE agreements_packets_id_seq OWNED BY agreements_packets.id;
 
 
 --
--- TOC entry 2329 (class 0 OID 0)
--- Dependencies: 1669
+-- TOC entry 2311 (class 0 OID 0)
+-- Dependencies: 1663
 -- Name: agreements_packets_id_seq; Type: SEQUENCE SET; Schema: public; Owner: cms_kalog
 --
 
 SELECT pg_catalog.setval('agreements_packets_id_seq', 1, false);
 
+
+--
+-- TOC entry 2329 (class 0 OID 0)
+-- Dependencies: 1669
+-- Name: agreements_packets_id_seq; Type: SEQUENCE SET; Schema: public; Owner: cms_kalog
+--
 
 --
 -- TOC entry 1766 (class 1259 OID 17806)
