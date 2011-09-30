@@ -1,4 +1,4 @@
---
+﻿--
 -- PostgreSQL database dump
 --
 
@@ -152,7 +152,7 @@ CREATE TABLE agreements_packets (
     packet_id integer,
     freetime integer,
     penalty money,
-    deposit money,
+    deposit money
 );
 
 
