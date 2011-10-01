@@ -47,38 +47,7 @@ Trucking Company
 </div>
 
 <script type="text/javascript">
-    //<![CDATA[    
-    
-    truckAutoComplete = function (elem) {
-        var availableTags = [
-            "ActionScript",
-            "AppleScript",
-            "Asp",
-            "BASIC",
-            "C",
-            "C++",
-            "Clojure",
-            "COBOL",
-            "ColdFusion",
-            "Erlang",
-            "Fortran",
-            "Groovy",
-            "Haskell",
-            "Java",
-            "JavaScript",
-            "Lisp",
-            "Perl",
-            "PHP",
-            "Python",
-            "Ruby",
-            "Scala",
-            "Scheme"];
-        
-        $(elem).autocomplete({
-            'source': availableTags
-        });
-    }
-    
+    //<![CDATA[ 
     // =========================================================================
     // Master Vars
     // =========================================================================
@@ -144,7 +113,6 @@ Trucking Company
                 'editoptions'   : 
                     {
                         'size'          : 10,
-                        'dataInit'      : truckAutoComplete
                     }                    
             }
         ],

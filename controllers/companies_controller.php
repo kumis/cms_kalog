@@ -7,8 +7,12 @@ class CompaniesController extends AppController {
 	var $helpers = array('Cholesterol.Jqgrid', 'Cholesterol.Autocomplete');
 
 	function index() {
-		$this->Company->recursive = 0;
-		$this->set('companies', $this->paginate());
+//		$this->Company->recursive = 0;
+//		$this->set('companies', $this->paginate());
+        $customers = $this->__setJSONForAutocomplete('Customer', $this->Company,'customer', array(
+        'name'=>'name', 'label' => 'name'));
+       
+        $this->set('autocompleteData',$customers);
 	}
 
 	function view($id = null) {

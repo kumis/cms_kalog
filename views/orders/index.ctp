@@ -1,23 +1,23 @@
 <?php
 // =================================================================
-// Master : Companies
+// Master : Orders
 // =================================================================
 $gridIdMaster       = 'company_master';
-$masterPrimaryKey   = "Company.id";
+$masterPrimaryKey   = "Order.id";
 $urlMaster          = Router::url(array(
-        'controller'    => 'companies',
+        'controller'    => 'orders',
         'action'        => 'jqgrid_list',
         'ext'           => 'json',
     )
 );
 $editUrlMaster = Router::url(array(
-        'controller'    => 'companies',
+        'controller'    => 'orders',
         'action'        => 'jqgrid_edit',
         'ext'           => 'json',
 	)
 );
 ?>
-Company
+Order
 <table id="<?php echo $gridIdMaster;?>"></table>
 <div id="<?php echo $gridIdMaster;?>_pager"></div> 
 <br/> 
@@ -71,7 +71,7 @@ Company
     // Master Script
     // =========================================================================
     var companyGrid = $("#"+gridIdMaster).jqGrid({
-        'caption'       : "Companies",
+        'caption'       : "Orders",
         'width'         : 500,
         "gridModel"     : true,
         'url'           : urlMaster,
@@ -81,15 +81,15 @@ Company
         'colModel'      : [
             {
                 'width'         : 50,
-                'index'         : 'Company.id',
-                'name'          : 'data[Company][id]',
+                'index'         : 'Order.id',
+                'name'          : 'data[Order][id]',
                 'label'         : 'Id'
                 
             },
             {
                 'width'         : 50,
-                'index'         : 'Company.id',
-                'name'          : 'data[Company][id]',
+                'index'         : 'Order.id',
+                'name'          : 'data[Order][id]',
                 'hidden'        : true,
                 'label'         : 'Id',
                 'editable'      : true
@@ -97,18 +97,23 @@ Company
             },
             {
                 'width'         : 50,
-                'index'         : 'Company.region',
-                'name'          : 'data[Company][region]',
-                'label'         : 'Region',
-                'editable'      : true
+                'index'         : 'Order.debtor',
+                'name'          : 'data[Order][debtor]',
+                'label'         : 'Debtor',
+                'editable'      : true,
+                'editoptions'   : 
+                    {
+                        'size'          : 10,
+                        'dataInit'      : customerAutoComplete
+                    }  
                 
             },
             {
                 'width'         : 50,
-                'index'         : 'Customer.name',
-                'name'          : 'data[Customer][name]',
+                'index'         : 'Order.creditor',
+                'name'          : 'data[Order][creditor]',
                 'editable'      : true,
-                'label'         : 'Name',
+                'label'         : 'Creditor',
                 'editoptions'   : 
                     {
                         'size'          : 10,
