@@ -487,8 +487,8 @@ class AppController extends Controller {
                     $val[$modelName][$fields['description']] : '') .
                     ( (isset($fields['series']) && isset($val[$modelName][$fields['series']])) ?
                         ' (' . $val[$modelName][$fields['series']] . ') ' : ''),
-                    'label' => ( isset($fields['code']) && isset($val[$modelName][$fields['code']])?
-                    $val[$modelName][$fields['code']] : $val[$modelName]['id'])
+                    'label' => ( isset($fields['name']) && isset($val[$modelName][$fields['name']])?
+                    $val[$modelName][$fields['name']] : $val[$modelName]['code'])
                 );
             }
             ${$setName . '_descriptions'}[$key] = ${$setName . '_names'}[$key];
