@@ -1,14 +1,13 @@
 <?php
-class ServicesController extends AppController {
-
-	var $name = 'Services';
-    var $pageTitle = 'service';
+class PacketsController extends AppController{
+    var $name = 'Packets';
+    var $pageTitle = 'packet';
     var $components = array('Cholesterol.Jqgrid');
 	var $helpers = array('Cholesterol.Jqgrid', 'Cholesterol.Autocomplete');
 
 	function index() {
-		$this->Service->recursive = 0;
-		$this->set('services', $this->paginate());
+		$this->Packet->recursive = 0;
+		$this->set('packets', $this->paginate());
 	}
 
 	function view($id = null) {
@@ -16,22 +15,21 @@ class ServicesController extends AppController {
 			$this->Session->setFlash(__('Invalid service', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('service', $this->Service->read(null, $id));
+		$this->set('packet', $this->Packet->read(null, $id));
 	}
 
 	function add() {
 		if (!empty($this->data)) {
-			$this->Service->create();
-			if ($this->Service->save($this->data)) {
+			$this->Packet->create();
+			if ($this->Packet->save($this->data)) {
 				$this->Session->setFlash(__('The service has been saved', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The service could not be saved. Please, try again.', true));
 			}
 		}
-		$packets = $this->Service->Packet->find('list');
-		$documents = $this->Service->Document->find('list');
-		$this->set(compact('packets', 'documents'));
+		$services = $this->Packet->Service->find('list');
+		$this->set(compact('services'));
 	}
 
 	function edit($id = null) {
@@ -40,19 +38,18 @@ class ServicesController extends AppController {
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->data)) {
-			if ($this->Service->save($this->data)) {
-				$this->Session->setFlash(__('The service has been saved', true));
+			if ($this->Packet->save($this->data)) {
+				$this->Session->setFlash(__('The packet has been saved', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The service could not be saved. Please, try again.', true));
 			}
 		}
 		if (empty($this->data)) {
-			$this->data = $this->Service->read(null, $id);
+			$this->data = $this->Packet->read(null, $id);
 		}
-		$packets = $this->Service->Packet->find('list');
-		$documents = $this->Service->Document->find('list');
-		$this->set(compact('packets', 'documents'));
+		$services = $this->Packet->Service->find('list');
+		$this->set(compact('services'));
 	}
 
 	function delete($id = null) {
@@ -60,30 +57,27 @@ class ServicesController extends AppController {
 			$this->Session->setFlash(__('Invalid id for service', true));
 			$this->redirect(array('action'=>'index'));
 		}
-		if ($this->Service->delete($id)) {
+		if ($this->Packet->delete($id)) {
 			$this->Session->setFlash(__('Service deleted', true));
 			$this->redirect(array('action'=>'index'));
 		}
 		$this->Session->setFlash(__('Service was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
-	
-	//==============================================================================
+//==============================================================================
 // Start of JqGrid functions
 //==============================================================================
 	function jqgrid_list() {
-		$this->Service->Behaviors->attach('Containable');
-		$this->Jqgrid->find('Service', array(
+		$this->Packet->Behaviors->attach('Containable');
+		$this->Jqgrid->find('Packet', array(
 			'contain' => array(
-				//'Service.id',
-                //'Service.name'
 			),
             'fields' => array(
-				"Service.id",
-				"Service.name",
+				"Packet.id",
+				"Packet.name",
 			),
             'order' => array(
-                "Service.id"
+                "Packet.id"
             ),
 			'recursive' => 0,
 		));
@@ -92,14 +86,16 @@ class ServicesController extends AppController {
     function jqgrid_edit() {        
         switch ($this->params['form']['oper']) {
             case 'edit' :
-                $this->Service->saveAll($this->data);
+                $this->Packet->saveAll($this->data);
+                //$this->Driver->save($this->data);
                 break;
             case 'add' :
-                $this->Service->save($this->data);
+                $this->Packet->save($this->data);
                 break;
         }
     }
 //==============================================================================
 // End of JqGrid functions
 //==============================================================================
+  
 }
