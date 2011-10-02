@@ -1292,13 +1292,33 @@ SELECT pg_catalog.setval('countries_id_seq', 894, true);
 -- Dependencies: 7
 -- Name: customers; Type: TABLE; Schema: public; Owner: cms_kalog; Tablespace: 
 --
+-- CREATE TABLE customers (
+--    id integer NOT NULL,
+--    name character varying(50),
+--    contact_person_id integer
+--);
 
-CREATE TABLE customers (
-    id integer NOT NULL,
-    name character varying(50),
-    contact_person_id integer
+-- DROP TABLE customers;
+
+CREATE TABLE customers
+(
+  id serial NOT NULL,
+  "name" character varying(50),
+  contact_person_id integer,
+  code character varying(20),
+  address character varying(255),
+  country character varying(20),
+  zipcode character varying(10),
+  phone_number character varying(15),
+  fax_number character varying(15),
+  email character varying(50),
+  npwp character varying(30),
+  vat character varying(30),
+  CONSTRAINT customers_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
 );
-
 
 ALTER TABLE public.customers OWNER TO cms_kalog;
 
