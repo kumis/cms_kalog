@@ -21,7 +21,9 @@ Service
 <table id="<?php echo $gridIdMaster;?>"></table>
 <div id="<?php echo $gridIdMaster;?>_pager"></div> 
 <br/> 
-
+<?php
+	echo $html->link(__('New Packet', true), array('action'=>'add')); 
+?>
 <script type="text/javascript">
     //<![CDATA[ 
     // =========================================================================
@@ -109,8 +111,8 @@ Service
         'navGrid', 
         "#"+gridIdMasterPager,
         {
-            "add": true,
-            "edit": true,
+            "add": false,
+            "edit": false,
             "del": true,
             "search": true
         },{},{},{},{multipleSearch:true}
