@@ -91,11 +91,9 @@ Agreement
                             focus:function(e, ui){
                                 
                                 $(e.target).val( ui.item.name );
-                                //alert($(e.target).val( ));
                                 return false;
                                 },
                             select:function(e, ui){
-                                alert($(e.target));
                                 var row = $(e.target).parent().parent();
                                 
                                 $(e.target).val( ui.item.name );
