@@ -59,6 +59,12 @@ Agreement
         ?>
 	</fieldset>
 	</form>
+    <div id="truck_detail_container">
+    Agreement Packet 
+    <table id="<?php echo $gridIdDetail;?>"></table>
+    <div id="<?php echo $gridIdDetail;?>_pager"></div>
+    <a href="javascript:void(0)" id="ms1">Get Selected id's</a>
+</div>
 </div>
 <script type="text/javascript">
     //<![CDATA[    
@@ -95,10 +101,14 @@ Agreement
         modal       : true
     });
     
-    var opendialog  = function opendialog(param){
+    var opendialog  = function opendialog(ids){
             $( "#formdialog" ).dialog();
-            $("#"+gridIdMaster).jqGrid('GridToForm', param, "#agreementhead" );
-            console.log(param);
+            $("#"+gridIdMaster).jqGrid('GridToForm', ids, "#agreementhead" );
+            
+                        jQuery("#"+gridIdDetail).jqGrid('setCaption', "Agreement Packate: " + ids).trigger('reloadGrid');
+                
+                
+            console.log(jQuery("#"+gridIdDetail).jqGrid('getGridParam', 'records'));
 			
     }
     
