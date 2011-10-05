@@ -47,6 +47,19 @@ Agreement
     <a href="javascript:void(0)" id="ms1">Get Selected id's</a>
 </div>
 
+<div id='formdialog' style='display:none;'>
+    <?php echo $form->create('Agreement',array('id'=>'agreementhead'));?>
+	<fieldset>
+        <?
+		echo $form->input('id',array('disabled'=>true));
+        echo $form->input('Customer.name',array('disabled'=>true));
+        echo $form->input('start_date',array('disabled'=>true,'type'=>'text'));
+        echo $form->input('expired_date',array('disabled'=>true,'type'=>'text'));
+        
+        ?>
+	</fieldset>
+	</form>
+</div>
 <script type="text/javascript">
     //<![CDATA[    
     // =========================================================================
@@ -66,17 +79,41 @@ Agreement
     var gridIdDetailPager   = "<?php echo $gridIdDetail;?>_pager";
     var urlDetail           = "<?php echo $urlDetail;?>";
     var editUrlDetail       = "<?php echo $editUrlDetail;?>";
-
+    //==========================================================================
+    //
+    //==========================================================================
+    
+    
     // =========================================================================
     // Dialog
     // =========================================================================
+    
     var detailDialog = $("#"+gridIdDetail).dialog({
         autoOpen    : false,
         height      : 400,
         width       : 600,
         modal       : true
     });
-
+    
+    var opendialog  = function opendialog(param){
+            $( "#formdialog" ).dialog();
+            $("#"+gridIdMaster).jqGrid('GridToForm', param, "#agreementhead" );
+            console.log(param);
+			
+    }
+    
+    var agreementButton = function(){
+         
+        var ids = jQuery("#"+gridIdMaster).jqGrid('getDataIDs'); 
+        
+        for(var i=0;i < ids.length;i++){ 
+            var cl = ids[i];
+             
+            be = "<input style='height:22px;width:20px;' type='button' value='E' onclick=\"opendialog('"+cl+"');\" />";
+            jQuery("#"+gridIdMaster).jqGrid('setRowData',ids[i],{'act':be}); 
+            } 
+        }
+    
     // =========================================================================
     // Master Script
     // =========================================================================
@@ -120,6 +157,7 @@ Agreement
         'caption'       : "Agreements",
         'width'         : 800,
         "gridModel"     : true,
+        "gridComplete"  : agreementButton,
         'url'           : urlMaster,
         'datatype'      : 'json',
         'editurl'       : editUrlMaster,
@@ -190,6 +228,13 @@ Agreement
                         'size'          : 10,
                         'dataInit':function(el){ $(el).datepicker({dateFormat:'yy-mm-dd'}); },
                     }                    
+            },
+            {
+                'name':'act',
+                'index':'act', 
+                'width':75,
+                'label':'Action',
+                'sortable':false
             }
             
         ],
@@ -199,7 +244,7 @@ Agreement
         'sortname'      : 'id',
         'viewrecords'   : true, 
         'sortorder'     : "asc",
-        'multiselect'   : false ,
+        'multiselect'   : true ,
       //  'postData'      :{'oper':'grid'},
         'prmNames'      :{
                                 'deloper':'del',"excel":"excel","subgrid":"subgrid","totalrows":"totalrows",
@@ -211,7 +256,7 @@ Agreement
             },
         "onCellSelect" : function (ids, cellId) {
             // the cellId points to the first cell defined in colModel
-            if(cellId == 0) {
+            if(cellId == 1) {
                 detailDialog.dialog("open");
                 if (ids == null) {
                     ids = 0;
@@ -220,7 +265,7 @@ Agreement
                             url: urlDetail+"?"+masterPrimaryKey+"=" + ids,
                             page: 1
                         });
-                        jQuery("#"+gridIdDetail).jqGrid('setCaption', "Invoice Detail: " + ids).trigger('reloadGrid');
+                        jQuery("#"+gridIdDetail).jqGrid('setCaption', "Agreement Packate: " + ids).trigger('reloadGrid');
                     }
                 } else {
                     jQuery("#"+gridIdDetail).jqGrid('setGridParam', {
@@ -234,7 +279,7 @@ Agreement
         },
         "beforeCheckValues": 
             function (id,name,val,iRow,iCol){
-                    alert(jQuery("#"+iRow+"_start_date","#celltbl")); 
+                   // alert(jQuery("#"+iRow+"_start_date","#celltbl")); 
                     //if(name=='start_date') { 
                         
                     //    jQuery("#"+iRow+"_start_date","#celltbl").datepicker({dateFormat:"yy-mm-dd"}); 
@@ -253,6 +298,8 @@ Agreement
         }
     );
 
+
+     
     // =========================================================================
     // Detail Script
     // =========================================================================
@@ -270,6 +317,7 @@ Agreement
         'editurl'       : editUrlDetail,
         'colNames'      : [],
         'colModel'      : [
+            
             {
                 'width'         : 50,
                 'index'         : 'AgreementsPacket.id',
@@ -311,15 +359,44 @@ Agreement
             },
             {
                 'width'         : 50,
-                'index'         : 'AgreementsPacket.',
-                'name'          : 'data[AgreementsPacket][charge]',
+                'index'         : 'AgreementsPacket.freetime',
+                'name'          : 'data[AgreementsPacket][freetime]',
                 'editable'      : true,
-                'label'         : 'Plate Number',
+                'label'         : 'Free Time',
                 'editoptions'   : 
                     {
                         'size'          : 10
                     }                    
+            },
+            {
+                'width'         : 50,
+                'index'         : 'AgreementsPacket.penalty',
+                'name'          : 'data[AgreementsPacket][penalty]',
+                'editable'      : true,
+                'label'         : 'Penalty',
+                'editoptions'   : 
+                    {
+                        'size'          : 10
+                    }                    
+            },
+            {
+                'width'         : 50,
+                'index'         : 'AgreementsPacket.deposit',
+                'name'          : 'data[AgreementsPacket][deposit]',
+                'editable'      : true,
+                'label'         : 'Deposit',
+                'editoptions'   : 
+                    {
+                        'size'          : 10
+                    }                    
+            },
+            {
+                'name':'act',
+                'index':'act', 
+                'width':75,
+                'sortable':false
             }
+            
         ],
         'rowNum'        : 10, 
         'rowList'       : [10,20,30], 
@@ -327,7 +404,7 @@ Agreement
         'sortname'      : 'AgreementsPacket.id',
         'viewrecords'   : true, 
         'sortorder'     : "asc",
-        'multiselect'   : false ,
+        'multiselect'   : true ,
         "jsonReader"    : {
                 "repeatitems": false,
                 "id": "id"

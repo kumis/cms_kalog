@@ -1,71 +1,169 @@
-<div class="containerTypes index">
-	<h2><?php __('Container Types');?></h2>
-	<table cellpadding="0" cellspacing="0">
-	<tr>
-			<th><?php echo $this->Paginator->sort('id');?></th>
-			<th><?php echo $this->Paginator->sort('container_length_id');?></th>
-			<th><?php echo $this->Paginator->sort('container_heights_container_widths_id');?></th>
-			<th><?php echo $this->Paginator->sort('container_group_type_id');?></th>
-			<th><?php echo $this->Paginator->sort('created');?></th>
-			<th><?php echo $this->Paginator->sort('created_by');?></th>
-			<th><?php echo $this->Paginator->sort('modified');?></th>
-			<th><?php echo $this->Paginator->sort('modified_by');?></th>
-			<th class="actions"><?php __('Actions');?></th>
-	</tr>
-	<?php
-	$i = 0;
-	foreach ($containerTypes as $containerType):
-		$class = null;
-		if ($i++ % 2 == 0) {
-			$class = ' class="altrow"';
-		}
-	?>
-	<tr<?php echo $class;?>>
-		<td><?php echo $containerType['ContainerType']['id']; ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($containerType['ContainerLength']['code'], array('controller' => 'container_lengths', 'action' => 'view', $containerType['ContainerLength']['id'])); ?>
-		</td>
-		<td>
-			<?php echo $this->Html->link($containerType['ContainerHeightsContainerWidths']['id'], array('controller' => 'container_heights_container_widths', 'action' => 'view', $containerType['ContainerHeightsContainerWidths']['id'])); ?>
-		</td>
-		<td>
-			<?php echo $this->Html->link($containerType['ContainerGroupType']['code'], array('controller' => 'container_group_types', 'action' => 'view', $containerType['ContainerGroupType']['id'])); ?>
-		</td>
-		<td><?php echo $containerType['ContainerType']['created']; ?>&nbsp;</td>
-		<td><?php echo $containerType['ContainerType']['created_by']; ?>&nbsp;</td>
-		<td><?php echo $containerType['ContainerType']['modified']; ?>&nbsp;</td>
-		<td><?php echo $containerType['ContainerType']['modified_by']; ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View', true), array('action' => 'view', $containerType['ContainerType']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit', true), array('action' => 'edit', $containerType['ContainerType']['id'])); ?>
-			<?php echo $this->Html->link(__('Delete', true), array('action' => 'delete', $containerType['ContainerType']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $containerType['ContainerType']['id'])); ?>
-		</td>
-	</tr>
-<?php endforeach; ?>
-	</table>
-	<p>
-	<?php
-	echo $this->Paginator->counter(array(
-	'format' => __('Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%', true)
-	));
-	?>	</p>
-
-	<div class="paging">
-		<?php echo $this->Paginator->prev('<< ' . __('previous', true), array(), null, array('class'=>'disabled'));?>
-	 | 	<?php echo $this->Paginator->numbers();?>
- |
-		<?php echo $this->Paginator->next(__('next', true) . ' >>', array(), null, array('class' => 'disabled'));?>
-	</div>
-</div>
-<div class="actions">
-	<h3><?php __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Container Type', true), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Container Lengths', true), array('controller' => 'container_lengths', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Container Length', true), array('controller' => 'container_lengths', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Container Heights Container Widths', true), array('controller' => 'container_heights_container_widths', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Container Heights Container Widths', true), array('controller' => 'container_heights_container_widths', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Container Group Types', true), array('controller' => 'container_group_types', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Container Group Type', true), array('controller' => 'container_group_types', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+<?php
+$gridIdMaster       = 'container_types';
+$masterPrimaryKey   = "ContainerTypes.id";
+$urlMaster          = Router::url(array(
+        'controller'    => 'container_types',
+        'action'        => 'jqgrid_list',
+        'ext'           => 'json',
+    )
+);
+$editUrlMaster = Router::url(array(
+        'controller'    => 'container_types',
+        'action'        => 'jqgrid_edit',
+        'ext'           => 'json',
+	)
+);
+?>
+Container Type
+<table id="<?php echo $gridIdMaster;?>"></table>
+<div id="<?php echo $gridIdMaster;?>_pager"></div> 
+<br/> 
+<script type="text/javascript">
+    //<![CDATA[    
+    // =========================================================================
+    // Master Vars
+    // =========================================================================
+    var gridIdMaster        = "<?php echo $gridIdMaster;?>";
+    var masterPrimaryKey    = "<?php echo $masterPrimaryKey;?>";
+    var gridIdMasterPager   = "<?php echo $gridIdMaster;?>_pager";
+    var urlMaster           = "<?php echo $urlMaster;?>";
+    var editUrlMaster       = "<?php echo $editUrlMaster;?>";
+    
+        var agreementGrid = $("#"+gridIdMaster).jqGrid({
+        'caption'       : "Agreements",
+        'width'         : 800,
+        "gridModel"     : true,
+        'url'           : urlMaster,
+        'datatype'      : 'json',
+        'editurl'       : editUrlMaster,
+        'colNames'      : [],
+        'colModel'      : [
+            {
+                'width'         : 50,
+                'index'         : 'Agreement.id',
+                'name'          : 'data[Agreement][id]',
+                'label'         : 'Id'
+                
+            },
+            {
+                'width'         : 50,
+                'index'         : 'Agreement.id',
+                'name'          : 'data[Agreement][id]',
+                'hidden'        : true,
+                'label'         : 'Id',
+                'editable'      : true
+                
+            },
+            {
+                'width'         : 50,
+                'index'         : 'Customer.name',
+                'name'          : 'data[Agreement][customer_id]',
+                'editable'      : true,
+                'hidden'        : true,
+                'label'         : 'Customer Name' 
+            },
+            
+            {
+                'width'         : 50,
+                'index'         : 'Customer.name',
+                'name'          : 'data[Customer][name]',
+                'editable'      : true, 
+                'label'         : 'Customer Name',
+                'editoptions'   : 
+                    {
+                        'size'          : 10,
+                      //  'dataInit'      : customerAutoComplete
+                        
+                                         
+                        }, 
+                'editrules': { required: true},
+                
+                            
+            },
+            {
+                'width'         : 50,
+                'index'         : 'Agreement.start_date',
+                'name'          : 'data[Agreement][start_date]',
+                'editable'      : true,
+                'label'         : 'Start date',
+                'editoptions'   : 
+                    {
+                        'size'          : 10,
+                        'dataInit':function(el){ $(el).datepicker({dateFormat:'yy-mm-dd'}); },
+                    }                    
+            },
+            {
+                'width'         : 50,
+                'index'         : 'Agreement.expired_date',
+                'name'          : 'data[Agreement][expired_date]',
+                'editable'      : true,
+                'label'         : 'Expired Date',
+                'editoptions'   : 
+                    {
+                        'size'          : 10,
+                        'dataInit':function(el){ $(el).datepicker({dateFormat:'yy-mm-dd'}); },
+                    }                    
+            }
+            
+        ],
+        'rowNum'        : 10, 
+        'rowList'       : [10,20,30], 
+        'pager'         : gridIdMasterPager, 
+        'sortname'      : 'id',
+        'viewrecords'   : true, 
+        'sortorder'     : "asc",
+        'multiselect'   : false ,
+      //  'postData'      :{'oper':'grid'},
+        'prmNames'      :{
+                                'deloper':'del',"excel":"excel","subgrid":"subgrid","totalrows":"totalrows",
+                                'autocomplete':'autocmpl'
+                        },
+        "jsonReader"    : {
+                "repeatitems": false,
+                "id": "id"
+            },/*
+        "onCellSelect" : function (ids, cellId) {
+            // the cellId points to the first cell defined in colModel
+            if(cellId == 0) {
+                detailDialog.dialog("open");
+                if (ids == null) {
+                    ids = 0;
+                    if (jQuery("#"+gridIdDetail).jqGrid('getGridParam', 'records') > 0) {
+                        jQuery("#"+gridIdDetail).jqGrid('setGridParam', {
+                            url: urlDetail+"?"+masterPrimaryKey+"=" + ids,
+                            page: 1
+                        });
+                        jQuery("#"+gridIdDetail).jqGrid('setCaption', "Invoice Detail: " + ids).trigger('reloadGrid');
+                    }
+                } else {
+                    jQuery("#"+gridIdDetail).jqGrid('setGridParam', {
+                        url: urlDetail+"?"+masterPrimaryKey+"=" + ids,
+                        page: 1
+                    });
+                    jQuery("#"+gridIdDetail).jqGrid('setCaption', "Invoice Detail: " + ids).trigger('reloadGrid');
+                }  
+                              
+            }
+        },*/
+        "beforeCheckValues": 
+            function (id,name,val,iRow,iCol){
+                    alert(jQuery("#"+iRow+"_start_date","#celltbl")); 
+                    //if(name=='start_date') { 
+                        
+                    //    jQuery("#"+iRow+"_start_date","#celltbl").datepicker({dateFormat:"yy-mm-dd"}); 
+                    //} 
+                }
+    });
+    
+    var agreementGrid = $("#"+gridIdMaster).jqGrid(
+        'navGrid', 
+        "#"+gridIdMasterPager,
+        {
+            "add": true,
+            "edit": true,
+            "del": true,
+            "search": true
+        }
+    );
+    //]]>
+</script>
