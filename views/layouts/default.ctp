@@ -40,7 +40,7 @@
 		<div class="tophdw">
                 <div id="tophd" class="tophdc">
                 <?php
-                    echo $html->image('logo', array('height' => 40, 'weight' => 20));
+                    echo $html->image('logo_120x81', array('height' => 40, 'weight' => 20));
                 ?>
                 <h1>
                     <?php echo $html->link($session->read('Site.site_name'), '/');?>

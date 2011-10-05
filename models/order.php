@@ -4,28 +4,28 @@ class Order extends AppModel {
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 	var $belongsTo = array(
-		'Packets' => array(
-			'className' => 'Packet',
-			'foreignKey' => 'packet_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
-        'Customer' => array(
+		'Debtor' => array(
 			'className' => 'Customer',
-			'foreignKey' => 'customer_id',
+			'foreignKey' => 'debtor',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
 		),
-	);
+		'Creditor' => array(
+			'className' => 'Customer',
+			'foreignKey' => 'creditor',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
+    );
 
 	var $hasAndBelongsToMany = array(
-		'ContainerType' => array(
-			'className' => 'ContainerType',
-			'joinTable' => 'container_types_orders',
+		'Packet' => array(
+			'className' => 'Packet',
+			'joinTable' => 'orders_packets',
 			'foreignKey' => 'order_id',
-			'associationForeignKey' => 'container_type_id',
+			'associationForeignKey' => 'packet_id',
 			'unique' => true,
 			'conditions' => '',
 			'fields' => '',

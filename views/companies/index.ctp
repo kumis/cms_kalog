@@ -72,7 +72,7 @@ Company
     // =========================================================================
     var companyGrid = $("#"+gridIdMaster).jqGrid({
         'caption'       : "Companies",
-        'width'         : 500,
+        'width'         : 900,
         "gridModel"     : true,
         'url'           : urlMaster,
         'datatype'      : 'json',
@@ -80,7 +80,7 @@ Company
         'colNames'      : [],
         'colModel'      : [
             {
-                'width'         : 50,
+                'width'         : 10,
                 'index'         : 'Company.id',
                 'name'          : 'data[Company][id]',
                 'label'         : 'Id'
@@ -93,7 +93,14 @@ Company
                 'hidden'        : true,
                 'label'         : 'Id',
                 'editable'      : true
-                
+            },
+            {
+                'width'         : 50,
+                'index'         : 'Customer.id',
+                'name'          : 'data[Customer][id]',
+                'hidden'        : true,
+                'label'         : 'Id',
+                'editable'      : true                
             },
             {
                 'width'         : 50,
@@ -109,6 +116,114 @@ Company
                 'name'          : 'data[Customer][name]',
                 'editable'      : true,
                 'label'         : 'Name',
+                'editoptions'   : 
+                    {
+                        'size'          : 10,
+                        'dataInit'      : customerAutoComplete
+                    }                    
+            },
+            {
+                'width'         : 50,
+                'index'         : 'Customer.code',
+                'name'          : 'data[Customer][code]',
+                'editable'      : true,
+                'label'         : 'Code',
+                'editoptions'   : 
+                    {
+                        'size'          : 10,
+                        'dataInit'      : customerAutoComplete
+                    }                    
+            },
+            {
+                'width'         : 50,
+                'index'         : 'Customer.address',
+                'name'          : 'data[Customer][address]',
+                'editable'      : true,
+                'label'         : 'Adress',
+                'editoptions'   : 
+                    {
+                        'size'          : 10,
+                        'dataInit'      : customerAutoComplete
+                    }                    
+            },
+            {
+                'width'         : 50,
+                'index'         : 'Customer.country',
+                'name'          : 'data[Customer][country]',
+                'editable'      : true,
+                'label'         : 'Country',
+                'editoptions'   : 
+                    {
+                        'size'          : 10,
+                        'dataInit'      : customerAutoComplete
+                    }                    
+            },
+            {
+                'width'         : 50,
+                'index'         : 'Customer.zipcode',
+                'name'          : 'data[Customer][zipcode]',
+                'editable'      : true,
+                'label'         : 'Zipcode',
+                'editoptions'   : 
+                    {
+                        'size'          : 10,
+                        'dataInit'      : customerAutoComplete
+                    }                    
+            },
+            {
+                'width'         : 50,
+                'index'         : 'Customer.phone_number',
+                'name'          : 'data[Customer][phone_number]',
+                'editable'      : true,
+                'label'         : 'Phone Number',
+                'editoptions'   : 
+                    {
+                        'size'          : 10,
+                        'dataInit'      : customerAutoComplete
+                    }                    
+            },
+            {
+                'width'         : 50,
+                'index'         : 'Customer.fax_number',
+                'name'          : 'data[Customer][fax_number]',
+                'editable'      : true,
+                'label'         : 'Fax Number',
+                'editoptions'   : 
+                    {
+                        'size'          : 10,
+                        'dataInit'      : customerAutoComplete
+                    }                    
+            },
+            {
+                'width'         : 50,
+                'index'         : 'Customer.email',
+                'name'          : 'data[Customer][email]',
+                'editable'      : true,
+                'label'         : 'Email',
+                'editoptions'   : 
+                    {
+                        'size'          : 10,
+                        'dataInit'      : customerAutoComplete
+                    }                    
+            },
+            {
+                'width'         : 50,
+                'index'         : 'Customer.npwp',
+                'name'          : 'data[Customer][npwp]',
+                'editable'      : true,
+                'label'         : 'NPWP',
+                'editoptions'   : 
+                    {
+                        'size'          : 10,
+                        'dataInit'      : customerAutoComplete
+                    }                    
+            },
+            {
+                'width'         : 50,
+                'index'         : 'Customer.vat',
+                'name'          : 'data[Customer][vat]',
+                'editable'      : true,
+                'label'         : 'VAT',
                 'editoptions'   : 
                     {
                         'size'          : 10,
@@ -145,3 +260,16 @@ Company
 //    }
         //]]>
 </script>
+<form id="test_form" name="test_form">
+    data[Company][id] : <input type="text" name="data[Company][id]" id ="data[Company][id]"/><br>
+    data[Company][region] : <input type="text" name="data[Company][region]" id ="data[Company][region]"/><br>
+    data[Customer][id] : <input type="text" name="data[Customer][id]" id ="data[Customer][id]"/><br>
+    data[Customer][name] : <input type="text" name="data[Customer][name]" id ="data[Customer][name]"/><br>
+    data[Customer][code] : <input type="text" name="data[Customer][code]" id ="data[Customer][code]"/><br>
+    data[Customer][address] : <input type="text" name="data[Customer][address]" id ="data[Customer][address]"/><br>
+    data[Customer][country] : <input type="text" name="data[Customer][country]" id ="data[Customer][country]"/><br>
+    data[Customer][zipcode] : <input type="text" name="data[Customer][zipcode]" id ="data[Customer][zipcode]"/><br>
+    data[Customer][phone_number] : <input type="text" name="data[Customer][phone_number]" id ="data[Customer][phone_number]"/><br>
+    data[Customer][fax_number] : <input type="text" name="data[Customer][fax_number]" id ="data[Customer][fax_number]"/><br>
+    data[Customer][email] : <input type="text" name="data[Customer][email]" id ="data[Customer][email]"/><br>
+</form>

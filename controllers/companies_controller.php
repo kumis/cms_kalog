@@ -84,17 +84,27 @@ class CompaniesController extends AppController {
 			),
             'fields' => array(
 				"Company.id",
-				"Customer.name",
                 "Company.region",
+				"Customer.id",
+				"Customer.name",
+				"Customer.code",
+				"Customer.address",
+				"Customer.country",
+				"Customer.zipcode",
+				"Customer.phone_number",
+				"Customer.fax_number",
+				"Customer.email",
+				"Customer.npwp",
+				"Customer.vat",
 			),
             'order' => array(
                 "Company.id"
             ),
-			'recursive' => 0,
+			'recursive' => 1,
 		));
 	}
 
-    function jqgrid_edit() {        
+    function jqgrid_edit() {
         switch ($this->params['form']['oper']) {
             case 'edit' :
                 $this->Company->saveAll($this->data);
