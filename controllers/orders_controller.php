@@ -87,6 +87,7 @@ class OrdersController extends AppController {
 				"Order.id",
 				"Order.debtor",
                 "Order.creditor",
+                "Order.date",
 				"Debtor.name",
                 "Creditor.name",
 			),
