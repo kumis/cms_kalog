@@ -1,67 +1,97 @@
 <?php
 class PacketsServicesController extends AppController {
-
-	var $name = 'PacketsServices';
+	// add Jqgrid component and helpers in your class variables.
+	var $components = array('Cholesterol.Jqgrid');
+	var $helpers = array('Cholesterol.Jqgrid', 'Cholesterol.Autocomplete');
+	
+	var $name = 'Packet Service';
 
 	function index() {
-		$this->PacketsService->recursive = 0;
-		$this->set('packetsServices', $this->paginate());
+
+	}
+	
+	function jqgrid_list() {
+		$this->AgreementsPacket->Behaviors->attach('Containable');
+		$this->Jqgrid->find('PacketService', array(
+			'contain' => array(
+				'Service.name',
+				'Packet.id'
+			),
+            'fields' => array(
+				"PacketService.id",
+				"Service.name",
+				"Packet.id",
+			),
+			'recursive' => 0,
+		));
 	}
 
 	function view($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid packets service', true));
+			$this->Session->setFlash(__('Invalid truck', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('packetsService', $this->PacketsService->read(null, $id));
+		$this->set('truck', $this->Truck->read(null, $id));
 	}
 
 	function add() {
 		if (!empty($this->data)) {
-			$this->PacketsService->create();
-			if ($this->PacketsService->save($this->data)) {
-				$this->Session->setFlash(__('The packets service has been saved', true));
+			$this->Truck->create();
+			if ($this->Truck->save($this->data)) {
+				$this->Session->setFlash(__('The truck has been saved', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The packets service could not be saved. Please, try again.', true));
+				$this->Session->setFlash(__('The truck could not be saved. Please, try again.', true));
 			}
 		}
-		$packets = $this->PacketsService->Packet->find('list');
-		$services = $this->PacketsService->Service->find('list');
-		$this->set(compact('packets', 'services'));
+		$drivers = $this->Truck->Driver->find('list');
+		$truckingCompanies = $this->Truck->TruckingCompany->find('list');
+		$this->set(compact('drivers', 'truckingCompanies'));
 	}
 
 	function edit($id = null) {
 		if (!$id && empty($this->data)) {
-			$this->Session->setFlash(__('Invalid packets service', true));
+			$this->Session->setFlash(__('Invalid truck', true));
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->data)) {
-			if ($this->PacketsService->save($this->data)) {
-				$this->Session->setFlash(__('The packets service has been saved', true));
+			if ($this->Truck->save($this->data)) {
+				$this->Session->setFlash(__('The truck has been saved', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The packets service could not be saved. Please, try again.', true));
+				$this->Session->setFlash(__('The truck could not be saved. Please, try again.', true));
 			}
 		}
 		if (empty($this->data)) {
-			$this->data = $this->PacketsService->read(null, $id);
+			$this->data = $this->Truck->read(null, $id);
 		}
-		$packets = $this->PacketsService->Packet->find('list');
-		$services = $this->PacketsService->Service->find('list');
-		$this->set(compact('packets', 'services'));
+		$drivers = $this->Truck->Driver->find('list');
+		$truckingCompanies = $this->Truck->TruckingCompany->find('list');
+		$this->set(compact('drivers', 'truckingCompanies'));
 	}
 
 	function delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for packets service', true));
+			$this->Session->setFlash(__('Invalid id for truck', true));
 			$this->redirect(array('action'=>'index'));
 		}
-		if ($this->PacketsService->delete($id)) {
-			$this->Session->setFlash(__('Packets service deleted', true));
+		if ($this->Truck->delete($id)) {
+			$this->Session->setFlash(__('Truck deleted', true));
 			$this->redirect(array('action'=>'index'));
 		}
-		$this->Session->setFlash(__('Packets service was not deleted', true));
+		$this->Session->setFlash(__('Truck was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
+    
+    function jqgrid_edit() {        
+        switch ($this->params['form']['oper']) {
+            case 'edit' :
+                $this->AgreementsPacket->saveAll($this->data);
+                //$this->Driver->save($this->data);
+                break;
+            case 'add' :
+                $this->AgreementsPacket->save($this->data);
+                break;
+        }
+    }
 }
