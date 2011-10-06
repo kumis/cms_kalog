@@ -15,13 +15,11 @@ class PacketsController extends AppController{
 	function jqgrid_list() {
 		$this->Packet->Behaviors->attach('Containable');
 		$this->Jqgrid->find('Packet', array(
-			'contain' => array('Service.id'),
-
+			'contain' => array(),
             'fields' => array(
 				"Packet.id",
 				"Packet.name"
 			),
-
             'order' => array(
                 "Packet.id"
             ),
