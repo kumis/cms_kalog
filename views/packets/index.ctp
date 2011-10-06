@@ -56,7 +56,7 @@ Packet
         ?>
 	</fieldset>
 	</form>
-    <div id="packet_service">
+    <div id="truck_detail_container">
     Packet Service
     <table id="<?php echo $gridIdDetail;?>"></table>
     <div id="<?php echo $gridIdDetail;?>_pager"></div>
