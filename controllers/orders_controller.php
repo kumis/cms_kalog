@@ -9,6 +9,7 @@ class OrdersController extends AppController {
 	function index() {
 //		$this->Order->recursive = 0;
 //		$this->set('orders', $this->paginate());
+        //pr($this->Order->find('all'));
         $this->__setJSONForAutocomplete('Debtor', $this->Order,'debtor', array('name'=>'name'));
         $this->__setJSONForAutocomplete('Creditor', $this->Order,'creditor', array('name'=>'name'));
        
@@ -81,7 +82,16 @@ class OrdersController extends AppController {
 				'Debtor.id',
                 'Debtor.name',
 				'Creditor.id',
-                'Creditor.name'
+                'Creditor.name',
+                'Creditor.name',
+/*
+                'OrderPacket.order_id',
+                'OrderPacket.packet_id',
+*/
+/*
+                'Packet.id',
+                'Packet.name'
+*/
 			),
             'fields' => array(
 				"Order.id",
@@ -90,11 +100,19 @@ class OrdersController extends AppController {
                 "Order.date",
 				"Debtor.name",
                 "Creditor.name",
+/*
+                "OrderPacket.order_id",
+                "OrderPacket.packet_id",
+*/
+/*
+                "Packet.id",
+                "Packet.name"
+*/
 			),
             'order' => array(
                 "Order.id"
             ),
-			'recursive' => 1,
+			'recursive' => 2,
 		));
 	}
 

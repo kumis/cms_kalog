@@ -66,7 +66,7 @@ $editUrl = Router::url(array(
                 'width'         : 50,
                 'index'         : 'ContactPerson.first_name',
                 'name'          : 'data[ContactPerson][first_name]',
-                'label'         : 'First Name',
+                'label'         : 'Contact Person',
                 'editable'      : true
                 
             },

@@ -1,6 +1,18 @@
+	<style>
+		label, input { display:block; }
+		input.text { margin-bottom:12px; width:95%; padding: .4em; }
+		fieldset { padding:0; border:0; margin-top:25px; }
+		h1 { font-size: 1.2em; margin: .6em 0; }
+		div#users-contain { width: 350px; margin: 20px 0; }
+		div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
+		div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+		.ui-dialog .ui-state-error { padding: .3em; }
+		.validateTips { border: 1px solid transparent; padding: 0.3em; }
+	</style>
+
 <?php
 // =================================================================
-// Master : Trucking Companies
+// Master : Orders
 // =================================================================
 $gridIdMaster       = 'order_master';
 $masterPrimaryKey   = "Order.id";
@@ -18,10 +30,10 @@ $editUrlMaster = Router::url(array(
 );
 
 // =================================================================
-// Detail : Trucks
+// Detail : packets
 // =================================================================
 $gridIdDetail       = 'order_packet';
-$detailPrimaryKey   = "Order.id";
+$detailPrimaryKey   = "OrderPacket.id";
 $urlDetail = Router::url(array(
         'controller'    => 'orders_packets',
         'action'        => 'jqgrid_list',
@@ -39,35 +51,25 @@ Order
 <table id="<?php echo $gridIdMaster;?>"></table>
 <div id="<?php echo $gridIdMaster;?>_pager"></div> 
 <br/> 
-
-<div id="truck_detail_container">
-    Order Packet 
-    <table id="<?php echo $gridIdDetail;?>"></table>
-    <div id="<?php echo $gridIdDetail;?>_pager"></div>
-    <a href="javascript:void(0)" id="ms1">Get Selected id's</a>
-</div>
-
-<div id='formdialog' style='display:none;'>
-    <?php echo $form->create('Order',array('id'=>'orderhead'));?>
+<div id="dialog" >
+    <?php echo $form->create('Order',array('id'=>'orderDetail'));?>
 	<fieldset>
         <?
-		echo $form->input('id',array('disabled'=>true));
-        echo $form->input('Order.date',array('disabled'=>true, 'type'=>'text','label' => 'Date'));
-        echo $form->input('Debtor.name',array('disabled'=>true,'type'=>'text', 'label' => 'Debtor Name'));
-        echo $form->input('Creditor.name',array('disabled'=>true,'type'=>'text', 'label' => 'Creditor Name'));
-        
+		echo $form->input('Order.id',array('disabled'=>true));
+        echo $form->input('Debtor.name',array('disabled'=>true, 'label' => 'Debtor Name'));
+        echo $form->input('Creditor.name',array('disabled'=>true, 'label' => 'Creditor Name'));
         ?>
 	</fieldset>
 	</form>
-    <div id="truck_detail_container">
-    Order Packet 
-    <table id="<?php echo $gridIdDetail;?>"></table>
-    <div id="<?php echo $gridIdDetail;?>_pager"></div>
-    <a href="javascript:void(0)" id="ms1">Get Selected id's</a>
+    <div>
+        Order Packet 
+        <table id="<?php echo $gridIdDetail;?>"></table>
+        <div id="<?php echo $gridIdDetail;?>_pager"></div>
+    </div>
 </div>
-</div>
+
 <script type="text/javascript">
-    //<![CDATA[    
+    //<![CDATA[ 
     // =========================================================================
     // Master Vars
     // =========================================================================
@@ -86,45 +88,7 @@ Order
     var urlDetail           = "<?php echo $urlDetail;?>";
     var editUrlDetail       = "<?php echo $editUrlDetail;?>";
     //==========================================================================
-    //
-    //==========================================================================
-    
-    
-    // =========================================================================
-    // Dialog
-    // =========================================================================
-    
-    var detailDialog = $("#"+gridIdDetail).dialog({
-        autoOpen    : false,
-        height      : 400,
-        width       : 600,
-        modal       : true
-    });
-    
-    var opendialog  = function opendialog(ids){
-            $("#formdialog" ).dialog();
-            $("#"+gridIdMaster).jqGrid('GridToForm', ids, "#orderhead" );
-            
-            $("#"+gridIdDetail).jqGrid('setCaption', "Order Packate: " + ids).trigger('reloadGrid');			
-    }
-    
-    var orderButton = function(){
-         
-        var ids = jQuery("#"+gridIdMaster).jqGrid('getDataIDs'); 
-        
-        for(var i=0;i < ids.length;i++){ 
-            var cl = ids[i];
-             
-            be = "<input style='height:22px;width:20px;' type='button' value='E' onclick=\"opendialog('"+cl+"');\" />";
-            jQuery("#"+gridIdMaster).jqGrid('setRowData',ids[i],{'act':be}); 
-            } 
-        }
-    
-    // =========================================================================
-    // Master Script
-    // =========================================================================
-    /*dt_autocomplete**/
-    <?php
+ <?php
         if ( isset($autocompleteData) && !empty($autocompleteData) ):
             foreach ($autocompleteData as $acd):
                     echo 'var ' . $acd . '_codes = ' . ${$acd . '_names'} . ';';
@@ -134,9 +98,11 @@ Order
                             focus:function(e, ui){
                                 
                                 $(e.target).val( ui.item.name );
+                                //alert($(e.target).val( ));
                                 return false;
                                 },
                             select:function(e, ui){
+                                alert($(e.target));
                                 var row = $(e.target).parent().parent();
                                 
                                 $(e.target).val( ui.item.name );
@@ -148,22 +114,45 @@ Order
             endforeach;
         endif;
     ?>
+    var detailDialog = $("#"+gridIdDetail).dialog({
+        autoOpen    : false,
+        height      : 400,
+        width       : 600,
+        modal       : true
+    });
     
-        customerAutoComplete = function (elem) {
-            
-            $(elem).autocomplete(customer_code_params).data( "autocomplete" )._renderItem = function( ul, item ) {
-                return $( "<li></li>" )
-				.data( "item.autocomplete", item )
-				.append( "<a>" + item.name + "</a>" )
-				.appendTo( ul );
-		};
-        }
-  
+    var editDetailDialog = function editDetailDialog(rowId) {
+        $( "#dialog" ).dialog();
+        $("#"+gridIdMaster).jqGrid('GridToForm', rowId, "#orderDetail" );
+        
+        $("#"+gridIdDetail).jqGrid('setCaption', "Order Details : " + rowId).trigger('reloadGrid');
+    }
+    
+    var customerAutoComplete = function (elem) {
+
+        $(elem).autocomplete(customer_code_params).data( "autocomplete" )._renderItem = function( ul, item ) {
+            return $( "<li></li>" )
+                .data( "item.autocomplete", item )
+                .append( "<a>" + item.name + "</a>" )
+                .appendTo( ul );
+        };
+    }
+    
+    var orderCustomButton = function(){ 
+        var ids = $("#"+gridIdMaster).jqGrid('getDataIDs');
+        for(var i=0;i < ids.length;i++){ 
+            var cl = ids[i]; 
+            be = "<input style='height:22px;width:20px;' type='button' value='E' onclick=\"editDetailDialog('"+cl+"');\" />";
+            $("#"+gridIdMaster).jqGrid('setRowData',ids[i],{Action:be}); 
+        } 
+    }
+    // =========================================================================
+    // Master Script
+    // =========================================================================
     var orderGrid = $("#"+gridIdMaster).jqGrid({
         'caption'       : "Orders",
-        'width'         : 800,
+        'width'         : 500,
         "gridModel"     : true,
-        "gridComplete"  : orderButton,
         'url'           : urlMaster,
         'datatype'      : 'json',
         'editurl'       : editUrlMaster,
@@ -187,97 +176,49 @@ Order
             },
             {
                 'width'         : 50,
-                'index'         : 'Debtor.name',
+                'index'         : 'Order.debtor',
                 'name'          : 'data[Debtor][name]',
+                'label'         : 'Debtor',
                 'editable'      : true,
-                'label'         : 'Debtor Name' 
-            },
-            
-            {
-                'width'         : 50,
-                'index'         : 'Creditor.name',
-                'name'          : 'data[Creditor][name]',
-                'editable'      : true, 
-                'label'         : 'Creditor Name',
                 'editoptions'   : 
                     {
-                        'size'          : 10                       
-                    }, 
-                'editrules': { required: true}
+                        'size'          : 10
+                    }  
                 
-                            
             },
             {
                 'width'         : 50,
-                'index'         : 'Order.date',
-                'name'          : 'data[Order][date]',
+                'index'         : 'Order.creditor',
+                'name'          : 'data[Creditor][name]',
                 'editable'      : true,
-                'label'         : 'date',
+                'label'         : 'Creditor',
                 'editoptions'   : 
                     {
-                        'size'          : 10,
-                        'dataInit':function(el){ $(el).datepicker({dateFormat:'yy-mm-dd'}); }
+                        'size'          : 10
                     }                    
             },
             {
-                'name':'act',
-                'index':'act', 
-                'width':75,
-                'label':'Action',
-                'sortable':false
-            }
-            
+                name            : 'Action',
+                index           : 'action', 
+                width           : 75,
+                sortable        : false
+            },
         ],
         'rowNum'        : 10, 
         'rowList'       : [10,20,30], 
         'pager'         : gridIdMasterPager, 
-        'sortname'      : 'id',
+        'sortname'      : 'Company.id',
         'viewrecords'   : true, 
         'sortorder'     : "asc",
         'multiselect'   : true ,
-      //  'postData'      :{'oper':'grid'},
-        'prmNames'      :{
-                                'deloper':'del',"excel":"excel","subgrid":"subgrid","totalrows":"totalrows",
-                                'autocomplete':'autocmpl'
-                        },
         "jsonReader"    : {
                 "repeatitems": false,
                 "id": "id"
             },
-        "onCellSelect" : function (ids, cellId) {
-            // the cellId points to the first cell defined in colModel
-            if(cellId == 1) {
-                detailDialog.dialog("open");
-                if (ids == null) {
-                    ids = 0;
-                    if (jQuery("#"+gridIdDetail).jqGrid('getGridParam', 'records') > 0) {
-                        jQuery("#"+gridIdDetail).jqGrid('setGridParam', {
-                            url: urlDetail+"?"+masterPrimaryKey+"=" + ids,
-                            page: 1
-                        });
-                        jQuery("#"+gridIdDetail).jqGrid('setCaption', "Order Packate: " + ids).trigger('reloadGrid');
-                    }
-                } else {
-                    jQuery("#"+gridIdDetail).jqGrid('setGridParam', {
-                        url: urlDetail+"?"+masterPrimaryKey+"=" + ids,
-                        page: 1
-                    });
-                    jQuery("#"+gridIdDetail).jqGrid('setCaption', "Invoice Detail: " + ids).trigger('reloadGrid');
-                }  
-                              
-            }
-        },
-        "beforeCheckValues": 
-            function (id,name,val,iRow,iCol){
-                   // alert(jQuery("#"+iRow+"_start_date","#celltbl")); 
-                    //if(name=='start_date') { 
-                        
-                    //    jQuery("#"+iRow+"_start_date","#celltbl").datepicker({dateFormat:"yy-mm-dd"}); 
-                    //} 
-                }
+        'gridComplete' : orderCustomButton
     });
     
-    var orderGrid = $("#"+gridIdMaster).jqGrid(
+    var orderGridNav = $("#"+gridIdMaster).jqGrid(
         'navGrid', 
         "#"+gridIdMasterPager,
         {
@@ -285,21 +226,15 @@ Order
             "edit": true,
             "del": true,
             "search": true
-        }
+        },{},{},{},{multipleSearch:true}
     );
-
-
-     
+    
     // =========================================================================
     // Detail Script
     // =========================================================================
-    var gridIdDetail        = "<?php echo $gridIdDetail;?>";
-    var gridIdDetailPager   = "<?php echo $gridIdDetail;?>_pager";
-    var urlDetail           = "<?php echo $urlDetail;?>";
-    var editUrlDetail       = "<?php echo $editUrlDetail;?>";
     
-    var orderPacketGrid = $("#"+gridIdDetail).jqGrid({
-        'caption'       : "Order Packet",
+    var orderGridDetail = $("#"+gridIdDetail).jqGrid({
+        'caption'       : "Orders",
         'width'         : 500,
         "gridModel"     : true,
         'url'           : urlDetail,
@@ -326,33 +261,10 @@ Order
             },            
             {
                 'width'         : 50,
-                'index'         : 'Packet.id',
-                'name'          : 'data[Packet][id]',
-                'editable'      : true,
-                'hidden'        : true,                
-                'label'         : 'packet id',
-                'editoptions'   : 
-                    {
-                        'size'          : 10
-                    }                    
-            },
-            {
-                'width'         : 50,
-                'index'         : 'Packet.name',
-                'name'          : 'data[Packet][name]',
-                'editable'      : true,
-                'label'         : 'Packet Name',
-                'editoptions'   : 
-                    {
-                        'size'          : 10
-                    }                    
-            },
-            {
-                'width'         : 50,
                 'index'         : 'OrdersPacket.quantity',
                 'name'          : 'data[OrdersPacket][quantity]',
                 'editable'      : true,
-                'label'         : 'Quantity',
+                'label'         : 'packet id',
                 'editoptions'   : 
                     {
                         'size'          : 10
@@ -373,7 +285,7 @@ Order
             }
     });
     
-    var orderPacketGrid = $("#"+gridIdDetail).jqGrid(
+    var orderGridDetailNav = $("#"+gridIdDetail).jqGrid(
         'navGrid', 
         "#"+gridIdDetailPager,
         {
@@ -383,6 +295,8 @@ Order
             "search": true
         }
     );
-
-    //]]>
+//    var customerNameAutoComplete =  function customerNameAutoComplete (elem) {
+//        jQuery(elem).datepicker();
+//    }
+        //]]>
 </script>

@@ -78,17 +78,14 @@ class OrdersPacketsController extends AppController {
 	function jqgrid_list() {
 		$this->OrdersPacket->Behaviors->attach('Containable');
 		$this->Jqgrid->find('OrdersPacket', array(
-/*
 			'contain' => array(
-				'Debtor.id',
-                'Debtor.name',
-				'Creditor.id',
-                'Creditor.name'
+				'Packet.id',
+                'Packet.name'
 			),
-*/
             'fields' => array(
 				"OrdersPacket.id",
 				"OrdersPacket.quantity",
+				"Packet.name",
 			),
             'order' => array(
                 "OrdersPacket.id"
