@@ -16,7 +16,10 @@ class PacketsController extends AppController{
 		$this->Packet->Behaviors->attach('Containable');
 		$this->Jqgrid->find('Packet', array(
 			'contain' => array(),
-            'fields' => array(),
+            'fields' => array(
+				"Packet.id",
+				"Packet.name"
+			),
             'order' => array(
                 "Packet.id"
             ),
