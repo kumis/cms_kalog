@@ -401,8 +401,10 @@ Agreement
                     }                    
             },
             {
-                'name':'act',
-                'index':'act', 
+                'name'      :'data[AgreementsPacket][charge]',
+                'index'     :'AgreementsPacket.charge',
+                'editable'  :true,  
+                'label'     : 'Charge',
                 'width':75,
                 'sortable':false
             }
