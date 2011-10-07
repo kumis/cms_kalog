@@ -8,12 +8,12 @@
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Package'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $this->Html->link($order['Package']['name'], array('controller' => 'packages', 'action' => 'view', $order['Package']['id'])); ?>
+			<?php echo $this->Html->link($order['Packet']['name'], array('controller' => 'packet', 'action' => 'view', $order['Packet']['id'])); ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Quantity'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Date'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $order['Order']['quantity']; ?>
+			<?php echo $order['Order']['date']; ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Debtor'); ?></dt>

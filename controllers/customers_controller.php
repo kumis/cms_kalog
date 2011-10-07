@@ -12,7 +12,8 @@ class CustomersController extends AppController {
 		$this->Customer->Behaviors->attach('Containable');
 		$this->Jqgrid->find('Customer', array(
 			'contain' => array(
-				'ContactPerson.id'
+				'ContactPerson.id',
+				'ContactPerson.name',
 			),
             'fields' => array(
 				"Customer.id",
