@@ -66,5 +66,25 @@ class ContainerTypesController extends AppController {
 		$this->Session->setFlash(__('Container type was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
+    
+    function jqgrid_list(){
+        $this->Container->Behaviors->attach('Containable');
+		$this->Jqgrid->find('Container', array(
+			'contain' => array(
+				'ContainerGroupType.id',
+                'ContainerGroupType.code'
+			),
+            'fields' => array(
+				"ContainerType.id",
+				"Container.container_no",
+                "ContainerGroupType.code"
+			),
+            'order' => array(
+                "Container.id"
+            ),
+			'recursive' => 0,
+		));
+        
+    }
 }
 ?>

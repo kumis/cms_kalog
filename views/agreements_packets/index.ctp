@@ -1,17 +1,18 @@
+tes
 <?php
 // =================================================================
 // Trucks
 // =================================================================
-$gridId       = 'truck';
-$primaryKey   = "Truck.id";
+$gridId       = 'agrements_packet';
+$primaryKey   = "AgreementsPacket.id";
 $url = Router::url(array(
-        'controller'    => 'trucks',
+        'controller'    => 'agrements_packets',
         'action'        => 'jqgrid_list',
         'ext'           => 'json',
 	)
 );
 $editUrl = Router::url(array(
-        'controller'    => 'trucks',
+        'controller'    => 'agrements_packets',
         'action'        => 'jqgrid_edit',
         'ext'           => 'json',
 	)
@@ -19,7 +20,7 @@ $editUrl = Router::url(array(
 
 ?>
 
-<div id="truck_container">
+<div id="Agreements_packets">
     <table id="<?php echo $gridId;?>"></table>
     <div id="<?php echo $gridId;?>_pager"></div>
 </div>
@@ -39,49 +40,38 @@ $editUrl = Router::url(array(
     //  Script
     // =========================================================================
     
-    var truckGrid = $("#"+gridId).jqGrid({
-        'caption'       : "Trucks",
+    var agreementPacketGrid = $("#"+gridIdDetail).jqGrid({
+        'caption'       : "Agreement Packet",
         'width'         : 500,
         "gridModel"     : true,
-        'url'           : url,
+        'url'           : urlDetail,
         'datatype'      : 'json',
-        'editurl'       : editUrl,
+        'editurl'       : editUrlDetail,
         'colNames'      : [],
         'colModel'      : [
             {
                 'width'         : 50,
-                'index'         : 'Truck.id',
-                'name'          : 'data[Truck][id]',
+                'index'         : 'AgreementsPacket.id',
+                'name'          : 'data[AgreementsPacket][id]',
                 'label'         : 'Id'
                 
             },
             {
                 'width'         : 50,
-                'index'         : 'TruckingCompany.id',
-                'name'          : 'data[Truck][id]',
+                'index'         : 'AgreementsPacket.id',
+                'name'          : 'data[AgreementsPacket][id]',
                 'hidden'        : true,
                 'label'         : 'Id',
                 'editable'      : true
                 
-            },
+            },            
             {
                 'width'         : 50,
-                'index'         : 'Truck.plate_number',
-                'name'          : 'data[Truck][plate_number]',
-                'editable'      : true,
-                'label'         : 'Plate Number',
-                'editoptions'   : 
-                    {
-                        'size'          : 10
-                    }                    
-            },
-            {
-                'width'         : 50,
-                'index'         : 'Driver.id',
-                'name'          : 'data[Driver][id]',
+                'index'         : 'Packet.id',
+                'name'          : 'data[Packet][id]',
                 'editable'      : true,
                 'hidden'        : true,                
-                'label'         : 'Plate Number',
+                'label'         : 'packet id',
                 'editoptions'   : 
                     {
                         'size'          : 10
@@ -89,38 +79,83 @@ $editUrl = Router::url(array(
             },
             {
                 'width'         : 50,
-                'index'         : 'Driver.first_name',
-                'name'          : 'data[Driver][first_name]',
+                'index'         : 'Packet.name',
+                'name'          : 'data[Packet][name]',
                 'editable'      : true,
-                'label'         : 'Driver Name',
+                'label'         : 'Packet Name',
                 'editoptions'   : 
                     {
                         'size'          : 10
                     }                    
-            }
+            },
+            {
+                'width'         : 50,
+                'index'         : 'AgreementsPacket.charge',
+                'name'          : 'data[AgreementsPacket][charge]',
+                'editable'      : true,
+                'label'         : 'Charge',
+                'editoptions'   : 
+                    {
+                        'size'          : 10
+                    }                    
+            },
+            {
+                'width'         : 50,
+                'index'         : 'AgreementsPacket.freetime',
+                'name'          : 'data[AgreementsPacket][freetime]',
+                'editable'      : true,
+                'label'         : 'Freetime',
+                'editoptions'   : 
+                    {
+                        'size'          : 10
+                    }                    
+            },
+            {
+                'width'         : 50,
+                'index'         : 'AgreementsPacket.penalty',
+                'name'          : 'data[AgreementsPacket][penalty]',
+                'editable'      : true,
+                'label'         : 'Penalty',
+                'editoptions'   : 
+                    {
+                        'size'          : 10
+                    }                    
+            },{
+                'width'         : 50,
+                'index'         : 'AgreementsPacket.Deposit',
+                'name'          : 'data[AgreementsPacket][deposit]',
+                'editable'      : true,
+                'label'         : 'Charge',
+                'editoptions'   : 
+                    {
+                        'size'          : 10
+                    }                    
+            },
+            
         ],
         'rowNum'        : 10, 
         'rowList'       : [10,20,30], 
-        'pager'         : gridIdPager, 
-        'sortname'      : 'Truck.id',
+        'pager'         : gridIdDetailPager, 
+        'sortname'      : 'AgreementsPacket.id',
         'viewrecords'   : true, 
         'sortorder'     : "asc",
-        'multiselect'   : true ,
+        'multiselect'   : false ,
         "jsonReader"    : {
                 "repeatitems": false,
                 "id": "id"
             }
     });
     
-    var truckGrid = $("#"+gridId).jqGrid(
+    var agreementPacketGrid = $("#"+gridIdDetail).jqGrid(
         'navGrid', 
-        "#"+gridIdPager,
+        "#"+gridIdDetailPager,
         {
             "add": true,
             "edit": true,
             "del": true,
             "search": true
         },{},{},{},{multipleSearch:true}
-    );    
+    );
+    
     //]]>
 </script>

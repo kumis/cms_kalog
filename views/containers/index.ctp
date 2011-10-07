@@ -1,20 +1,20 @@
 <?php
-$gridIdMaster       = 'container_types';
-$masterPrimaryKey   = "ContainerTypes.id";
+$gridIdMaster       = 'container';
+$masterPrimaryKey   = "Container.id";
 $urlMaster          = Router::url(array(
-        'controller'    => 'container_types',
+        'controller'    => 'containers',
         'action'        => 'jqgrid_list',
         'ext'           => 'json',
     )
 );
 $editUrlMaster = Router::url(array(
-        'controller'    => 'container_types',
+        'controller'    => 'containers',
         'action'        => 'jqgrid_edit',
         'ext'           => 'json',
 	)
 );
 ?>
-Container Type
+Container
 <table id="<?php echo $gridIdMaster;?>"></table>
 <div id="<?php echo $gridIdMaster;?>_pager"></div> 
 <br/> 
@@ -29,8 +29,9 @@ Container Type
     var urlMaster           = "<?php echo $urlMaster;?>";
     var editUrlMaster       = "<?php echo $editUrlMaster;?>";
     
-        var agreementGrid = $("#"+gridIdMaster).jqGrid({
-        'caption'       : "Agreements",
+    
+        var containerGrid = $("#"+gridIdMaster).jqGrid({
+        'caption'       : "Containers",
         'width'         : 800,
         "gridModel"     : true,
         'url'           : urlMaster,
@@ -40,15 +41,15 @@ Container Type
         'colModel'      : [
             {
                 'width'         : 50,
-                'index'         : 'Agreement.id',
-                'name'          : 'data[Agreement][id]',
+                'index'         : 'Container.id',
+                'name'          : 'data[Container][id]',
                 'label'         : 'Id'
                 
             },
             {
                 'width'         : 50,
-                'index'         : 'Agreement.id',
-                'name'          : 'data[Agreement][id]',
+                'index'         : 'Container.id',
+                'name'          : 'data[Container][id]',
                 'hidden'        : true,
                 'label'         : 'Id',
                 'editable'      : true
@@ -56,53 +57,41 @@ Container Type
             },
             {
                 'width'         : 50,
-                'index'         : 'Customer.name',
-                'name'          : 'data[Agreement][customer_id]',
+                'index'         : 'ContainerType.id',
+                'name'          : 'data[ContainerType][Container_type_id]',
                 'editable'      : true,
                 'hidden'        : true,
-                'label'         : 'Customer Name' 
+                'label'         : 'ContainerTypeId' 
             },
             
             {
                 'width'         : 50,
-                'index'         : 'Customer.name',
-                'name'          : 'data[Customer][name]',
-                'editable'      : true, 
-                'label'         : 'Customer Name',
+                'index'         : 'Container.container_no',
+                'name'          : 'data[Container][container_no]',
+                'editable'      : true,
+                'label'         : 'Container No',
                 'editoptions'   : 
                     {
-                        'size'          : 10,
-                      //  'dataInit'      : customerAutoComplete
+                        'size'          : 10//,
+                        //'dataInit':function(el){ $(el).datepicker({}); },
+                    }                    
+            },
+            {
+                'width'         : 50,
+                'index'         : 'ContainerType.id',
+                'name'          : 'data[ContainerType][id]',
+                'editable'      : true, 
+                'label'         : 'Container Type',
+                'editoptions'   : 
+                    {
+                        'size'          : 10//,
+                       // 'dataInit'      : containerAutoComplete
                         
                                          
                         }, 
                 'editrules': { required: true},
                 
                             
-            },
-            {
-                'width'         : 50,
-                'index'         : 'Agreement.start_date',
-                'name'          : 'data[Agreement][start_date]',
-                'editable'      : true,
-                'label'         : 'Start date',
-                'editoptions'   : 
-                    {
-                        'size'          : 10,
-                        'dataInit':function(el){ $(el).datepicker({dateFormat:'yy-mm-dd'}); },
-                    }                    
-            },
-            {
-                'width'         : 50,
-                'index'         : 'Agreement.expired_date',
-                'name'          : 'data[Agreement][expired_date]',
-                'editable'      : true,
-                'label'         : 'Expired Date',
-                'editoptions'   : 
-                    {
-                        'size'          : 10,
-                        'dataInit':function(el){ $(el).datepicker({dateFormat:'yy-mm-dd'}); },
-                    }                    
             }
             
         ],
@@ -121,8 +110,8 @@ Container Type
         "jsonReader"    : {
                 "repeatitems": false,
                 "id": "id"
-            },/*
-        "onCellSelect" : function (ids, cellId) {
+            },
+    /*    "onCellSelect" : function (ids, cellId) {
             // the cellId points to the first cell defined in colModel
             if(cellId == 0) {
                 detailDialog.dialog("open");
@@ -155,7 +144,7 @@ Container Type
                 }
     });
     
-    var agreementGrid = $("#"+gridIdMaster).jqGrid(
+    var containerGrid = $("#"+gridIdMaster).jqGrid(
         'navGrid', 
         "#"+gridIdMasterPager,
         {

@@ -41,6 +41,9 @@ class TruckingCompaniesController extends AppController {
             case 'add' :
                 $this->TruckingCompany->save($this->data);
                 break;
+            case 'del' :
+                $this->TruckingCompany->delete($this->params['form']['id']);
+                break;
         }
     }
 //==============================================================================

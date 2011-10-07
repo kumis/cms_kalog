@@ -1,81 +1,105 @@
 <?php
-Class ServicesController extends AppController{
-	var $uses=array();
-	var $pageTitle='';
-	
-	function beforeFilter(){
-		parent::beforeFilter();
-		$this->Auth->allow('*');
+class ServicesController extends AppController {
+
+	var $name = 'Services';
+    var $pageTitle = 'service';
+    var $components = array('Cholesterol.Jqgrid');
+	var $helpers = array('Cholesterol.Jqgrid', 'Cholesterol.Autocomplete');
+
+	function index() {
+		$this->Service->recursive = 0;
+		$this->set('services', $this->paginate());
 	}
-	
-	function beforeRender(){
-		$this->layout='json/default';
-	}
-	
-	function authenticate(){
-		Configure::write('debug',0);
-		//$this->layout='json/default';
-		$respon=0;
-		$dt_all=array();
-		App::import('Model',array('User','VehicleCategory'));
-		if(isset($_POST) && !empty($_POST)){
-			$this->User = new User;
-			$this->VehicleCategory = new VehicleCategory;
-			$this->User->Behaviors->attach('Containable');
-			$cekuser= $this->User->find('first',array(
-			'conditions'=>array(
-				'User.username'=>$_POST['username'],
-				'User.password'=>sha1($_POST['password'])
-			),
-			'contain' => false
-			));
-			if(isset($cekuser['User']['id'])){
-				$this->VehicleCategory->Behaviors->attach('Containable');
-				$dt_vehicle=$this->VehicleCategory->find('all',array('contain' => false));
-				$dt_tmp_vehicle['Vehicle'] = $dt_vehicle;  
-				$dt_all = array_merge($dt_tmp_vehicle,$cekuser);
-			}			
+
+	function view($id = null) {
+		if (!$id) {
+			$this->Session->setFlash(__('Invalid service', true));
+			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('dt_all',$dt_all);
+		$this->set('service', $this->Service->read(null, $id));
 	}
-	
-	function cekauth(){
-		
-	}
-	
-	function gatein(){
-		Configure::write('debug',0);
-		App::import('Model',array('Parking','VehicleCategory','Member'));
-		$this->Member = new Member;
-		$this->VehicleCategory = new VehicleCategory;
-		$this->Parking = new Parking; 
-		
-		if (isset($_POST)) {
-			$this->Parking->create();
-			if ( $this->Parking->save($_POST) ) {
-				$this->set('layout', 1);
+
+	function add() {
+		if (!empty($this->data)) {
+			$this->Service->create();
+			if ($this->Service->save($this->data)) {
+				$this->Session->setFlash(__('The service has been saved', true));
+				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->set('layout', 0);
+				$this->Session->setFlash(__('The service could not be saved. Please, try again.', true));
 			}
-		} else {
-			$this->set('layout', 0);
 		}
+		$packets = $this->Service->Packet->find('list');
+		$documents = $this->Service->Document->find('list');
+		$this->set(compact('packets', 'documents'));
+	}
+
+	function edit($id = null) {
+		if (!$id && empty($this->data)) {
+			$this->Session->setFlash(__('Invalid service', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		if (!empty($this->data)) {
+			if ($this->Service->save($this->data)) {
+				$this->Session->setFlash(__('The service has been saved', true));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The service could not be saved. Please, try again.', true));
+			}
+		}
+		if (empty($this->data)) {
+			$this->data = $this->Service->read(null, $id);
+		}
+		$packets = $this->Service->Packet->find('list');
+		$documents = $this->Service->Document->find('list');
+		$this->set(compact('packets', 'documents'));
+	}
+
+	function delete($id = null) {
+		if (!$id) {
+			$this->Session->setFlash(__('Invalid id for service', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		if ($this->Service->delete($id)) {
+			$this->Session->setFlash(__('Service deleted', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		$this->Session->setFlash(__('Service was not deleted', true));
+		$this->redirect(array('action' => 'index'));
 	}
 	
-	function getstatus(){
-		Configure::write('debug',0);
-		App::import('Model',array('Parking'));
-		$this->Parking =  new Parking;
-		if (isset($_POST)&& !empty($_POST)) {
-			$this->Parking->recursive = 1;
-			$dt_parking = $this->Parking->find('all', array(
-			'conditions'=>array('Parking.vehicle_no' => $_POST['vehicle_no'] ,
-								'Parking.status' => 0
-						)
-			));
-			$this->set('dtstatus',$dt_parking);
-			
-		}
+	//==============================================================================
+// Start of JqGrid functions
+//==============================================================================
+	function jqgrid_list() {
+		$this->Service->Behaviors->attach('Containable');
+		$this->Jqgrid->find('Service', array(
+			'contain' => array(
+				//'Service.id',
+                //'Service.name'
+			),
+            'fields' => array(
+				"Service.id",
+				"Service.name",
+			),
+            'order' => array(
+                "Service.id"
+            ),
+			'recursive' => 0,
+		));
 	}
+
+    function jqgrid_edit() {        
+        switch ($this->params['form']['oper']) {
+            case 'edit' :
+                $this->Service->saveAll($this->data);
+                break;
+            case 'add' :
+                $this->Service->save($this->data);
+                break;
+        }
+    }
+//==============================================================================
+// End of JqGrid functions
+//==============================================================================
 }
-?>

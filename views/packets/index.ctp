@@ -1,18 +1,17 @@
 <?php
-
 // =================================================================
 // Master : Trucking Companies
 // =================================================================
-$gridIdMaster       = 'trucking_company_master';
-$masterPrimaryKey   = "TruckingCompany.id";
+$gridIdMaster       = 'packet_master';
+$masterPrimaryKey   = "Packet.id";
 $urlMaster          = Router::url(array(
-        'controller'    => 'trucking_companies',
+        'controller'    => 'packets',
         'action'        => 'jqgrid_list',
         'ext'           => 'json',
     )
 );
 $editUrlMaster = Router::url(array(
-        'controller'    => 'trucking_companies',
+        'controller'    => 'packets',
         'action'        => 'jqgrid_edit',
         'ext'           => 'json',
 	)
@@ -21,33 +20,51 @@ $editUrlMaster = Router::url(array(
 // =================================================================
 // Detail : Trucks
 // =================================================================
-$gridIdDetail       = 'truck_detail';
-$detailPrimaryKey   = "Truck.id";
+$gridIdDetail       = 'packet_service';
+$detailPrimaryKey   = "Packet.id";
 $urlDetail = Router::url(array(
-        'controller'    => 'trucks',
+        'controller'    => 'packet_services',
         'action'        => 'jqgrid_list',
         'ext'           => 'json',
 	)
 );
 $editUrlDetail = Router::url(array(
-        'controller'    => 'trucks',
+        'controller'    => 'packet_services',
         'action'        => 'jqgrid_edit',
         'ext'           => 'json',
 	)
 );
 ?>
-Trucking Company
+Packet
 <table id="<?php echo $gridIdMaster;?>"></table>
 <div id="<?php echo $gridIdMaster;?>_pager"></div> 
 <br/> 
 
 <div id="truck_detail_container">
+    Packet Service
     <table id="<?php echo $gridIdDetail;?>"></table>
     <div id="<?php echo $gridIdDetail;?>_pager"></div>
+    <a href="javascript:void(0)" id="ms1">Get Selected id's</a>
 </div>
 
+<div id='formdialog' style='display:none;'>
+    <?php echo $form->create('Packet',array('id'=>'packethead'));?>
+	<fieldset>
+        <?
+			echo $form->input('id',array('disabled'=>true));
+			echo $form->input('name',array('disabled'=>true));
+        ?>
+	</fieldset>
+	</form>
+    <div id="truck_detail_container">
+    Packet Service
+    <table id="<?php echo $gridIdDetail;?>"></table>
+    <div id="<?php echo $gridIdDetail;?>_pager"></div>
+    <a href="javascript:void(0)" id="ms1">Get Selected id's</a>
+</div>
+</div>
 <script type="text/javascript">
-    //<![CDATA[ 
+    //<![CDATA[    
     // =========================================================================
     // Master Vars
     // =========================================================================
@@ -65,24 +82,75 @@ Trucking Company
     var gridIdDetailPager   = "<?php echo $gridIdDetail;?>_pager";
     var urlDetail           = "<?php echo $urlDetail;?>";
     var editUrlDetail       = "<?php echo $editUrlDetail;?>";
-
+    //==========================================================================
+    //
+    //==========================================================================
+    
+    
     // =========================================================================
     // Dialog
     // =========================================================================
+    
     var detailDialog = $("#"+gridIdDetail).dialog({
         autoOpen    : false,
         height      : 400,
         width       : 600,
         modal       : true
     });
-
+    
+    var opendialog  = function opendialog(ids){
+            $( "#formdialog" ).dialog();
+            $("#"+gridIdMaster).jqGrid('GridToForm', ids, "#packethead" );
+			jQuery("#"+gridIdDetail).jqGrid('setCaption', "Packet Service: " + ids).trigger('reloadGrid');
+            console.log(jQuery("#"+gridIdDetail).jqGrid('getGridParam', 'records'));
+    }
+    
+    var packetButton = function(){
+         
+        var ids = jQuery("#"+gridIdMaster).jqGrid('getDataIDs'); 
+        
+        for(var i=0;i < ids.length;i++){ 
+            var cl = ids[i];
+             
+            be = "<input style='height:22px;width:20px;' type='button' value='E' onclick=\"opendialog('"+cl+"');\" />";
+            jQuery("#"+gridIdMaster).jqGrid('setRowData',ids[i],{'act':be}); 
+            } 
+        }
+    
     // =========================================================================
     // Master Script
     // =========================================================================
-    var truckingCompanyGrid = $("#"+gridIdMaster).jqGrid({
-        'caption'       : "Trucking Companies",
-        'width'         : 500,
+    /*dt_autocomplete**/
+    <?php
+        if ( isset($autocompleteData) && !empty($autocompleteData) ):
+            foreach ($autocompleteData as $acd):
+                    echo 'var ' . $acd . '_codes = ' . ${$acd . '_names'} . ';';
+                    echo
+                        'var ' . $acd . '_code_params = {
+                            minLength:0, source:' . $acd . '_codes,
+                            focus:function(e, ui){
+                                
+                                $(e.target).val( ui.item.name );
+                                return false;
+                                },
+                            select:function(e, ui){
+                                var row = $(e.target).parent().parent();
+                                
+                                $(e.target).val( ui.item.name );
+                                $("input[name*=' . $acd . '_id]").val( ui.item.id );
+                                //$(".' . $acd . '_description", row).val( ui.item.description );
+                                return false;
+                            }
+                        };';    
+            endforeach;
+        endif;
+    ?>
+  
+    var packetGrid = $("#"+gridIdMaster).jqGrid({
+        'caption'       : "Packets",
+        'width'         : 800,
         "gridModel"     : true,
+        "gridComplete"  : packetButton,
         'url'           : urlMaster,
         'datatype'      : 'json',
         'editurl'       : editUrlMaster,
@@ -90,15 +158,15 @@ Trucking Company
         'colModel'      : [
             {
                 'width'         : 50,
-                'index'         : 'TruckingCompany.id',
-                'name'          : 'data[TruckingCompany][id]',
+                'index'         : 'Packet.id',
+                'name'          : 'data[Packet][id]',
                 'label'         : 'Id'
                 
             },
             {
                 'width'         : 50,
-                'index'         : 'TruckingCompany.id',
-                'name'          : 'data[TruckingCompany][id]',
+                'index'         : 'Packet.id',
+                'name'          : 'data[Packet][id]',
                 'hidden'        : true,
                 'label'         : 'Id',
                 'editable'      : true
@@ -106,23 +174,45 @@ Trucking Company
             },
             {
                 'width'         : 50,
-                'index'         : 'TruckingCompany.name',
-                'name'          : 'data[TruckingCompany][name]',
+                'index'         : 'Packet.name',
+                'name'          : 'data[Packet][name]',
                 'editable'      : true,
-                'label'         : 'Name',
+                'hidden'        : true,
+                'label'         : 'Packet Name' 
+            },
+            {
+                'width'         : 50,
+                'index'         : 'Packet.name',
+                'name'          : 'data[Packet][name]',
+                'editable'      : true, 
+                'label'         : 'Packet Name',
                 'editoptions'   : 
                     {
                         'size'          : 10,
-                    }                    
+					},
+                'editrules': { required: true},
+            },
+            {
+                'name':'act',
+                'index':'act', 
+                'width':75,
+                'label':'Action',
+                'sortable':false
             }
+            
         ],
         'rowNum'        : 10, 
         'rowList'       : [10,20,30], 
         'pager'         : gridIdMasterPager, 
-        'sortname'      : 'TruckingCompany.id',
+        'sortname'      : 'id',
         'viewrecords'   : true, 
         'sortorder'     : "asc",
         'multiselect'   : true ,
+      //  'postData'      :{'oper':'grid'},
+        'prmNames'      :{
+                                'deloper':'del',"excel":"excel","subgrid":"subgrid","totalrows":"totalrows",
+                                'autocomplete':'autocmpl'
+                        },
         "jsonReader"    : {
                 "repeatitems": false,
                 "id": "id"
@@ -138,20 +228,23 @@ Trucking Company
                             url: urlDetail+"?"+masterPrimaryKey+"=" + ids,
                             page: 1
                         });
-                        jQuery("#"+gridIdDetail).jqGrid('setCaption', "Invoice Detail: " + ids).trigger('reloadGrid');
+                        jQuery("#"+gridIdDetail).jqGrid('setCaption', "Packet Service: " + ids).trigger('reloadGrid');
                     }
                 } else {
                     jQuery("#"+gridIdDetail).jqGrid('setGridParam', {
                         url: urlDetail+"?"+masterPrimaryKey+"=" + ids,
                         page: 1
                     });
-                    jQuery("#"+gridIdDetail).jqGrid('setCaption', "Invoice Detail: " + ids).trigger('reloadGrid');
-                }                
+                    jQuery("#"+gridIdDetail).jqGrid('setCaption', "Service Detail: " + ids).trigger('reloadGrid');
+                }  
             }
-        }
+        },
+        "beforeCheckValues": 
+            function (id,name,val,iRow,iCol) {
+			}
     });
     
-    var truckingCompanyGrid = $("#"+gridIdMaster).jqGrid(
+    var packetGrid = $("#"+gridIdMaster).jqGrid(
         'navGrid', 
         "#"+gridIdMasterPager,
         {
@@ -159,9 +252,11 @@ Trucking Company
             "edit": true,
             "del": true,
             "search": true
-        },{},{},{},{multipleSearch:true}
+        }
     );
 
+
+     
     // =========================================================================
     // Detail Script
     // =========================================================================
@@ -170,9 +265,10 @@ Trucking Company
     var urlDetail           = "<?php echo $urlDetail;?>";
     var editUrlDetail       = "<?php echo $editUrlDetail;?>";
     
-    var truckGrid = $("#"+gridIdDetail).jqGrid({
-        'caption'       : "Trucks",
+    var packetServiceGrid = $("#"+gridIdDetail).jqGrid({
+        'caption'       : "Packet Service",
         'width'         : 500,
+        "gridModel"     : true,
         'url'           : urlDetail,
         'datatype'      : 'json',
         'editurl'       : editUrlDetail,
@@ -180,38 +276,25 @@ Trucking Company
         'colModel'      : [
             {
                 'width'         : 50,
-                'index'         : 'Truck.id',
-                'name'          : 'data[Truck][id]',
+                'index'         : 'PacketService.id',
+                'name'          : 'data[PacketService][id]',
                 'label'         : 'Id'
-                
             },
             {
                 'width'         : 50,
-                'index'         : 'TruckingCompany.id',
-                'name'          : 'data[Truck][id]',
+                'index'         : 'PacketService.id',
+                'name'          : 'data[PacketService][id]',
                 'hidden'        : true,
                 'label'         : 'Id',
                 'editable'      : true
-                
-            },
+            },            
             {
                 'width'         : 50,
-                'index'         : 'Truck.plate_number',
-                'name'          : 'data[Truck][plate_number]',
-                'editable'      : true,
-                'label'         : 'Plate Number',
-                'editoptions'   : 
-                    {
-                        'size'          : 10
-                    }                    
-            },
-            {
-                'width'         : 50,
-                'index'         : 'Driver.id',
-                'name'          : 'data[Driver][id]',
+                'index'         : 'Service.id',
+                'name'          : 'data[Service][id]',
                 'editable'      : true,
                 'hidden'        : true,                
-                'label'         : 'Plate Number',
+                'label'         : 'Service Id',
                 'editoptions'   : 
                     {
                         'size'          : 10
@@ -219,20 +302,27 @@ Trucking Company
             },
             {
                 'width'         : 50,
-                'index'         : 'Driver.first_name',
-                'name'          : 'data[Driver][first_name]',
+                'index'         : 'Service.name',
+                'name'          : 'data[Service][name]',
                 'editable'      : true,
-                'label'         : 'Driver Name',
+                'label'         : 'Service Name',
                 'editoptions'   : 
                     {
                         'size'          : 10
                     }                    
+            },
+            {
+                'name':'act',
+                'index':'act', 
+                'width':75,
+                'sortable':false
             }
+            
         ],
         'rowNum'        : 10, 
         'rowList'       : [10,20,30], 
         'pager'         : gridIdDetailPager, 
-        'sortname'      : 'Truck.id',
+        'sortname'      : 'PacketService.id',
         'viewrecords'   : true, 
         'sortorder'     : "asc",
         'multiselect'   : true ,
@@ -242,7 +332,7 @@ Trucking Company
             }
     });
     
-    var truckGrid = $("#"+gridIdDetail).jqGrid(
+    var packetServiceGrid = $("#"+gridIdDetail).jqGrid(
         'navGrid', 
         "#"+gridIdDetailPager,
         {
@@ -250,7 +340,7 @@ Trucking Company
             "edit": true,
             "del": true,
             "search": true
-        },{},{},{},{multipleSearch:true}
+        }
     );
 
     //]]>

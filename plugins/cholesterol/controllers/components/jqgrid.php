@@ -218,7 +218,7 @@ class JqgridComponent extends Object {
 			'recursive' => -1,
 			'fields' => array()
 			), $options);
-
+        
 		extract($options);
 		extract($this->_extractGetParams($this->controller->params['url']));
 
@@ -232,6 +232,7 @@ class JqgridComponent extends Object {
 		if (!empty($fields)) {
 			// user has specified wanted fields, so use it.
 			$needFields = $this->_extractFields($fields);
+           
 		} else {
 			// fallback using model schema fields
 			$needFields = array($modelName => array_keys($model->_schema));
@@ -269,7 +270,7 @@ class JqgridComponent extends Object {
 			'limit' => $limit,
 			'order' => $field_order
 			);
-
+        
 		$rows = $model->find('all', $findOptions);
 
 		if ($doExport) {

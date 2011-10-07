@@ -17,7 +17,7 @@ class AppController extends Controller {
     var $helpers       = array('Html', 'Form', 'Javascript', 'Time', 'Tree', 'Session');
     var $paginate      = array('limit' => MAX_ROWS, 'page' => 1);
     var $modelName;
-    
+    var $autocompleteData = array();
 /**
  * This should be set according
  * to authentication
@@ -48,6 +48,18 @@ class AppController extends Controller {
  * records when show_all is set to false in current module / controller
  */
     var $showAllExcept = array(1, 23);
+    
+    function beforeRender() {
+        if ( !empty($this->autocompleteData) ) {
+            $this->set('autocompleteData', $this->autocompleteData);
+        }
+        $selectMaxYear = date('Y');
+        $selectMinYear = $selectMaxYear - 9;
+        $this->set('selectMaxYear', $selectMaxYear);
+        $this->set('selectMinYear', $selectMinYear);
+        
+        parent::beforeRender();
+    }
     
     function beforeFilter() {
         // read site settings and write it to session
@@ -441,6 +453,55 @@ class AppController extends Controller {
         }
         
 	    $this->set('result', $result);
+    }
+/** 
+ * Method related to autocomplete
+ * to get data from model and reply in - json 
+*/
+    function __setJSONForAutocomplete($modelName, $obj, $setName, $fields = array('name'=>'name','code' => 'code', 'description' => 'description')) {
+        $rows = $obj->{$modelName}->find('all', array(
+            'recursive' => -1
+        ));
+        ${$setName . '_codes'} = ${$setName . '_names'} = ${$setName . '_descriptions'} = array();
+        foreach ( $rows as $key => $val ) {
+            if(isset($fields['name']) && isset($val[$modelName][$fields['name']])){
+                ${$setName . '_names'}[$key] = array(
+                    'id' => $val[$modelName]['id'],
+                    'name' => $val[$modelName][$fields['name']],
+                     'code' => 
+                    ( isset($fields['code']) && isset($val[$modelName][$fields['code']])?$val[$modelName][$fields['code']] : ''),
+                    'description' => 
+                    ( isset($fields['description']) && isset($val[$modelName][$fields['description']])?
+                    $val[$modelName][$fields['description']] : '') .
+                    ( (isset($fields['series']) && isset($val[$modelName][$fields['series']])) ?
+                        ' (' . $val[$modelName][$fields['series']] . ') ' : ''),
+                    'label' => $val[$modelName]['name']
+                );
+            }
+            if(isset($fields['code']) && isset($val[$modelName][$fields['code']])){
+                ${$setName . '_codes'}[$key] = array(
+                    'id' => $val[$modelName]['id'], 'code' => 
+                    ( isset($fields['code']) && isset($val[$modelName][$fields['code']])?$val[$modelName][$fields['code']] : ''),
+                    'description' => 
+                    ( isset($fields['description']) && isset($val[$modelName][$fields['description']])?
+                    $val[$modelName][$fields['description']] : '') .
+                    ( (isset($fields['series']) && isset($val[$modelName][$fields['series']])) ?
+                        ' (' . $val[$modelName][$fields['series']] . ') ' : ''),
+                    'label' => ( isset($fields['name']) && isset($val[$modelName][$fields['name']])?
+                    $val[$modelName][$fields['name']] : $val[$modelName]['code'])
+                );
+            }
+            ${$setName . '_descriptions'}[$key] = ${$setName . '_names'}[$key];
+            ${$setName . '_descriptions'}[$key]['label'] =  ( isset($fields['description']) && 
+            isset($val[$modelName][$fields['description']])?
+                $val[$modelName][$fields['description']] : $val[$modelName][$fields['name']]) .
+            ( (isset($fields['series']) && isset($val[$modelName][$fields['series']])) ?
+                    ' (' . $val[$modelName][$fields['series']] . ') ' : '');
+        }
+        $this->autocompleteData[] = $setName;
+        $this->set($setName . '_codes', json_encode(${$setName . '_codes'}));
+        $this->set($setName . '_descriptions', json_encode(${$setName . '_descriptions'}));
+        $this->set($setName . '_names', json_encode(${$setName . '_names'}));
     }
 
 /**
