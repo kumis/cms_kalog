@@ -1,0 +1,7 @@
+/**
+ *
+ **/
+
+var jqGridLoader = function () {
+    
+}
