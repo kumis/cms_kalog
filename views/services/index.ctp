@@ -69,6 +69,14 @@ Service
                 'editable'      : true
                 
             },
+            {
+                'width'         : 50,
+                'index'         : 'Service.charge',
+                'name'          : 'data[Service][charge]',
+                'label'         : 'Charge',
+                'editable'      : true
+                
+            },
         ],
         'rowNum'        : 10, 
         'rowList'       : [10,20,30], 

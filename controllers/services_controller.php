@@ -81,6 +81,7 @@ class ServicesController extends AppController {
             'fields' => array(
 				"Service.id",
 				"Service.name",
+                "Service.charge"
 			),
             'order' => array(
                 "Service.id"
