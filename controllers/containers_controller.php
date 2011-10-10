@@ -74,11 +74,11 @@ class ContainersController extends AppController {
                     
                 )
 			),
-           'fields' => array(
+           'fields' => array(/*
 				"Container.id",
 				"Container.container_no",
-                "ContainerType.id"//,
-                //"CountainerGroupType.code"
+                "ContainerType.id",
+                "CountainerGroupType.code"*/
 			),
             'order' => array(
                 "Container.id"
