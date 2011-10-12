@@ -1,3 +1,9 @@
+<style>
+label {
+    margin-right:40px;
+    
+} 
+</style>
 <?php
 // =================================================================
 // Master : Trucking Companies
@@ -52,9 +58,9 @@ Agreement
 	<fieldset>
         <?
 		echo $form->input('id',array('disabled'=>true));
-        echo $form->input('Customer.name',array('disabled'=>true));
-        echo $form->input('start_date',array('disabled'=>true,'type'=>'text'));
-        echo $form->input('expired_date',array('disabled'=>true,'type'=>'text'));
+        echo $form->input('Customer.name',array('disabled'=>true,'label'=>'Customer','span'=>true));
+        echo $form->input('start_date',array('disabled'=>true,'type'=>'text','label'=>'Start date','span'=>true));
+        echo $form->input('expired_date',array('disabled'=>true,'type'=>'text','label'=>'Expired Date','span'=>true));
         
         ?>
 	</fieldset>
@@ -102,7 +108,13 @@ Agreement
     });
     
     var opendialog  = function opendialog(ids){
-            $( "#formdialog" ).dialog();
+            $( "#formdialog" ).dialog(
+            {
+                modal  : true,
+                height : 500,
+                width  : 700
+            }
+            );
             $("#"+gridIdMaster).jqGrid('GridToForm', ids, "#agreementhead" );
             
                         jQuery("#"+gridIdDetail).jqGrid('setCaption', "Agreement Packate: " + ids).trigger('reloadGrid');
@@ -166,6 +178,7 @@ Agreement
     var agreementGrid = $("#"+gridIdMaster).jqGrid({
         'caption'       : "Agreements",
         'width'         : 800,
+        'height'        : 300,
         "gridModel"     : true,
         "gridComplete"  : agreementButton,
         'url'           : urlMaster,
