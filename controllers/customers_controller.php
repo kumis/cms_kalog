@@ -13,10 +13,11 @@ class CustomersController extends AppController {
 		$this->Jqgrid->find('Customer', array(
 			'contain' => array(
 				'ContactPerson.id',
-				'ContactPerson.name',
+				'ContactPerson.first_name',
 			),
             'fields' => array(
 				"Customer.id",
+                "ContactPerson.id",
                 "ContactPerson.first_name",
 				"Customer.name",
 				"Customer.type"

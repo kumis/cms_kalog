@@ -2,7 +2,10 @@
 class ContactPeopleController extends AppController {
 
 	var $name = 'ContactPeople';
-
+    var $pageTitle = 'ContactPeople';
+    var $components = array('Cholesterol.Jqgrid');
+	var $helpers = array('Cholesterol.Jqgrid', 'Cholesterol.Autocomplete');
+    
 	function index() {
 		$this->ContactPerson->recursive = 0;
 		$this->set('contactPeople', $this->paginate());
@@ -58,5 +61,29 @@ class ContactPeopleController extends AppController {
 		$this->Session->setFlash(__('Contact person was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
+    
+//==============================================================================
+// Start of JqGrid functions
+//==============================================================================
+	function jqgrid_list() {
+		$this->ContactPerson->Behaviors->attach('Containable');
+		$this->Jqgrid->find('ContactPerson');
+	}
+
+    function jqgrid_edit() {        
+        switch ($this->params['form']['oper']) {
+            case 'edit' :
+                $this->Agreement->saveAll($this->data);
+                //$this->Driver->save($this->data);
+                break;
+            case 'add' :
+                $this->Agreement->save($this->data);
+                break;
+        }
+    }
+//==============================================================================
+// End of JqGrid functions
+//==============================================================================
+  
 }
 ?>
